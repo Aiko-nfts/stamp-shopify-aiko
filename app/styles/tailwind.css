@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://use.typekit.net/dmh5nuz.css");
+
+@layer base {
+
+  /* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    height: 8px;
+    display: block;
+    margin-left: 2px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #54688c; 
+  border-radius: 1rem;
+  -webkit-box-shadow: inset 0px 0px 0px 3px rgba(84,104,140,1); 
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d4e1ff; 
+  -webkit-box-shadow: inset 0px 0px 0px 3px rgba(84,104,140,1); 
+  border-radius: 2.5rem;
+  padding: 0 4px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d4e1ff; 
+}
+  html {
+    font-family: "video", sans-serif;
+  }
+
+  button {
+    letter-spacing: 0.1em;
+  }
+}
+
+@layer components {
+  .white {
+    filter: brightness(100) contrast(100) saturate(0);
+  }
+  .blue-stripe {
+    clip-path: polygon(
+    0% 0px,
+    /* top left */ 43% 0%,
+    /* top right */ 51% calc(100%),
+    /* bottom right */ 100% 100%,
+    /* bottom left */ 0 calc(100%) /* bottom left */
+  );
+}
+  .orange-stripe {
+    clip-path: polygon(
+      0% 0px,
+      /* top left */ 40% 0%,
+      /* top right */ 48% calc(100%),
+      /* bottom right */ calc(100%) 100%,
+
+      /* bottom left */ 0 calc(100%) /* bottom left */
+    );
+  }
+  .yellow-stripe {
+    clip-path: polygon(
+      0% 0px,
+      /* top left */ 32% 0%,
+      /* top right */ 40% calc(100%),
+      /* bottom right */ calc(100%) 100%,
+
+      /* bottom left */ 0 calc(100%) /* bottom left */
+    );
+  }
+  .border-6{
+    border-width: 6px;
+  }
+  .text-4-5xl {
+    font-size: 2.5rem/* 36px */;
+    line-height: 2.75rem/* 40px */;
+  }
+  .px-1-5 {
+    padding-left: 0.275rem;
+    padding-right: 0.275rem;
+  }
+  .pt-1-5 {
+    padding-top: 0.275rem;
+  }
+  .p-0-5 {
+    padding: 0.125rem/* 4px */;
+  }
+  .negative-m {
+    margin-right: -7rem;
+  }
+  .overlap {
+    margin-top: -32px;
+  }
+  .border-text {
+    text-shadow: 0 -3px 0px #363636,  -3px 0px 0px #363636, 3px 0 0px #363636,  0px 3px 0px #363636;
+  }
+  .border-text-sm {
+    text-shadow: 0 -2px 0px #363636,  -2px 0px 0px #363636, 2px 0 0px #363636,  0px 2px 0px #363636;
+  }
+  .light-text {
+    text-shadow: 0 -1px 0px #363636,  -1px 0px 0px #363636, 0 4px 0px #363636, -1px 4px 0px #363636, 1px 0px 0px #363636, 1px 4px 0px #363636;
+  }
+  .bold-text {
+    text-shadow: 0 6px 0px #363636, 0 3px 0 #363636, 0 -3px 0 #363636, 
+    -3px 6px 0 #363636, -3px 3px 0 #363636, -3px -3px 0 #363636, 
+    3px 6px 0 #363636, 3px 3px 0 #363636, 3px -3px 0 #363636;
+  }
+  .h-70 {
+    height: 17rem;
+  }
+  .h-62 {
+    height: 15.65rem;
+  }
+  .h-22 {
+    height: 5.55rem;
+  }
+  .w-54 {
+    width: 13.25rem;
+  }
+  .w-50 {
+    width: 12.65rem;
+  }
+  .clip-path-notched-xlg {
+    -webkit-clip-path: polygon(
+      0% 24px,/* top left */ 
+      24px 0%,/* top left */
+      calc(100% - 24px) 0%,/* top right */ 
+      100% 24px,/* top right */ 
+      100% calc(100% - 24px),/* bottom right */ 
+      calc(100% - 24px) 100%,/* bottom right */ 
+      24px 100%,/* bottom left */ 
+      0 calc(100% - 24px) /* bottom left */
+  );
+  }
+  .clip-path-notched-tp-xlg {
+    -webkit-clip-path: polygon(
+      0% 24px,/* top left */ 
+      24px 0%,/* top left */
+      calc(100% - 24px) 0%,/* top right */ 
+      100% 24px,/* top right */ 
+      100% calc(100% - 0px),/* bottom right */ 
+      calc(100% - 0px) 100%,/* bottom right */ 
+      0px 100%,/* bottom left */ 
+      0 calc(100% - 0px) /* bottom left */
+  );
+  }
+
+  .clip-path-notched-bt-xlg {
+    -webkit-clip-path: polygon(
+      0% 0px,/* top left */ 
+      0px 0%,/* top left */
+      calc(100% - 0px) 0%,/* top right */ 
+      100% 0px,/* top right */ 
+      100% calc(100% - 24px),/* bottom right */ 
+      calc(100% - 24px) 100%,/* bottom right */ 
+      24px 100%,/* bottom left */ 
+      0 calc(100% - 24px) /* bottom left */
+  );
+  }
+  .clip-path-notched-r-xlg {
+    -webkit-clip-path: polygon(
+      0% 0px,/* top left */ 
+      0px 0%,/* top left */
+      calc(100% - 24px) 0%,/* top right */ 
+      100% 24px,/* top right */ 
+      100% calc(100% - 24px),/* bottom right */ 
+      calc(100% - 24px) 100%,/* bottom right */ 
+      0px 100%,/* bottom left */ 
+      0 calc(100% - 0px) /* bottom left */
+  );
+  }
+  .clip-path-notched-lrg {
+    -webkit-clip-path: polygon(
+      0% 14px,/* top left */ 
+      14px 0%,/* top left */
+      calc(100% - 14px) 0%,/* top right */ 
+      100% 14px,/* top right */ 
+      100% calc(100% - 14px),/* bottom right */ 
+      calc(100% - 14px) 100%,/* bottom right */ 
+      14px 100%,/* bottom left */ 
+      0 calc(100% - 14px) /* bottom left */
+  );
+  }
+  .clip-path-notched {
+    clip-path: polygon(
+      0% 10px,/* top left */ 
+      10px 0%,/* top left */
+      calc(100% - 10px) 0%,/* top right */ 
+      100% 10px,/* top right */ 
+      100% calc(100% - 10px),/* bottom right */ 
+      calc(100% - 10px) 100%,/* bottom right */ 
+      10px 100%,/* bottom left */ 
+      0 calc(100% - 10px) /* bottom left */
+  );
+  }
+  .clip-path-notched-sm {
+    clip-path: polygon(
+      0% 8px,/* top left */ 
+      8px 0%,/* top left */
+      calc(100% - 8px) 0%,/* top right */ 
+      100% 8px,/* top right */ 
+      100% calc(100% - 8px),/* bottom right */ 
+      calc(100% - 8px) 100%,/* bottom right */ 
+      8px 100%,/* bottom left */ 
+      0 calc(100% - 8px) /* bottom left */
+  );
+  }
+  .clip-path-notched-xs {
+    clip-path: polygon(
+      0% 4px,/* top left */ 
+      4px 0%,/* top left */
+      calc(100% - 4px) 0%,/* top right */ 
+      100% 4px,/* top right */ 
+      100% calc(100% - 4px),/* bottom right */ 
+      calc(100% - 4px) 100%,/* bottom right */ 
+      4px 100%,/* bottom left */ 
+      0 calc(100% - 4px) /* bottom left */
+  );
+  }
+  .clip-path-notched-lf {
+    clip-path: polygon(
+      0% 10px,/* top left */ 
+      10px 0%,/* top left */
+      calc(100% - 0px) 0%,/* top right */ 
+      100% 0px,/* top right */ 
+      100% calc(100% - 0px),/* bottom right */ 
+      calc(100% - 0px) 100%,/* bottom right */ 
+      0px 100%,/* bottom left */ 
+      0 calc(100% - 0px) /* bottom left */
+  );
+  }
+}
