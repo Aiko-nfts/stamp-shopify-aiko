@@ -1,4 +1,4 @@
-import {useEffect, Suspense} from 'React';
+import {useEffect, Suspense} from 'react';
 import {Await} from '@remix-run/react';
 import {Drawer, useDrawer} from '~/components/Drawer';
 import {useMatches} from '@remix-run/react';
