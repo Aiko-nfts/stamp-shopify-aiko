@@ -5,12 +5,12 @@ module.exports = {
     extend: {
       keyframes: {
         slide: {
-          '0%': {transform: 'translate(25%, -25%)  scale(2)'},
-          '100%': {transform: 'translate(-25%, 25%)  scale(2)'},
+          '0%': {transform: 'translate(35.5%, -35.5%)  scale(2)'},
+          '100%': {transform: 'translate(-48%, 48%)  scale(2)'},
         },
       },
       animation: {
-        slide: 'slide 6s linear infinite',
+        slide: 'slide 3s linear infinite',
       },
       fontFamily: {
         video: ['video', 'system-ui', 'sans-serif'],

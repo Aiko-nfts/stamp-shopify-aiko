@@ -47,10 +47,8 @@ function CartDrawer({cart, close}) {
             {data?.totalQuantity > 0 ? (
               <>
                 <div className="flex flex-1 overflow-y-hidden border-formLightBlue">
-                  <div className="flex flex-col space-y-7 justify-between items-center px-3 py-3">
-                    <div className="flex border-4 border-dashed overflow-y-scroll  relative">
-                      <CartLineItems linesObj={data.lines} />
-                    </div>
+                  <div className="bg-[#d9e2ee] clip-path-notched-xlg m-5 flex flex-col space-y-7 justify-between items-center px-3 py-3 overflow-y-auto">
+                    <CartLineItems linesObj={data.lines} />
                   </div>
                 </div>
                 <div className="w-full md:px-12 px-4 py-6 space-y-6">
@@ -96,6 +94,7 @@ export function Layout({children, title}) {
         src={stars}
         alt=""
       />
+
       <div className="before:opacity-90 before:rotate-200 before:translate-x-20 before:absolute before:block before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-l before:from-white via-transparent"></div>
 
       <div className=" bg-[#84858c] clip-path-notched-xlg absolute w-8/12 h-5/6 p-1">
@@ -103,6 +102,7 @@ export function Layout({children, title}) {
           <span className="absolute bottom-0 text-xl flex justify-center items-center py-6 ">
             <img src="https://placehold.co/50x50" alt="" />
             <p className="text-[#84858c]">Powered By Aiko Virtual</p>
+            <CartHeader cart={cart} openDrawer={openDrawer} />
           </span>
         </div>
       </div>

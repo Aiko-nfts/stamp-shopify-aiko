@@ -170,6 +170,18 @@
       0 calc(100% - 24px) /* bottom left */
   );
   }
+  .clip-path-notched-l-xlg {
+    -webkit-clip-path: polygon(
+      0% 24px,/* top left */ 
+      24px 0%,/* top left */
+      calc(100% - 0px) 0%,/* top right */ 
+      100% 0px,/* top right */ 
+      100% calc(100% - 0px),/* bottom right */ 
+      calc(100% - 0px) 100%,/* bottom right */ 
+      24px 100%,/* bottom left */ 
+      0 calc(100% - 24px) /* bottom left */
+  );
+  }
   .clip-path-notched-r-xlg {
     -webkit-clip-path: polygon(
       0% 0px,/* top left */ 
@@ -180,6 +192,18 @@
       calc(100% - 24px) 100%,/* bottom right */ 
       0px 100%,/* bottom left */ 
       0 calc(100% - 0px) /* bottom left */
+  );
+  }
+  .clip-path-notched-l-lrg {
+    -webkit-clip-path: polygon(
+      0% 14px,/* top left */ 
+      14px 0%,/* top left */
+      calc(100% - 0px) 0%,/* top right */ 
+      100% 0px,/* top right */ 
+      100% calc(100% - 0px),/* bottom right */ 
+      calc(100% - 0px) 100%,/* bottom right */ 
+      14px 100%,/* bottom left */ 
+      0 calc(100% - 14px) /* bottom left */
   );
   }
   .clip-path-notched-lrg {

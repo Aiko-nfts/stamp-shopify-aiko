@@ -35,8 +35,8 @@ function Drawer({open, onClose, children}) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <div className="clip-path-notched-lrg p-1 max-w-lg  bg-[#282724] my-3 ">
-                  <Dialog.Panel className="clip-path-notched-lrg transform text-left align-middle shadow-xl transition-all antialiased bg-[#b4c2d9] flex flex-col">
+                <div className="clip-path-notched-l-lrg py-1 pl-1 max-w-2xl  bg-[#282724] my-3">
+                  <Dialog.Panel className="h-full clip-path-notched-l-lrg transform text-left align-middle shadow-xl transition-all antialiased bg-[#b4c2d9] flex flex-col">
                     <header className="sticky top-0 justify-between flex-0">
                       <div className=" bg-[#85aae4] w-full flex justify-start items-center py-3">
                         <div

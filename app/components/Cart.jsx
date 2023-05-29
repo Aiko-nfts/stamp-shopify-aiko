@@ -5,7 +5,7 @@ import {flattenConnection, Image, Money} from '@shopify/hydrogen-react';
 import {CART_QUERY} from '../root';
 
 const Cart = () => {
-  const {linesAdd, status} = useCart();
+  const {cart} = useCart();
 
   return (
     <div>
@@ -28,50 +28,38 @@ export function CartLineItems({linesObj}) {
 }
 function LineItem({lineItem}) {
   const {merchandise, quantity} = lineItem;
-  const size = merchandise.selectedOptions[0].value;
-  const color = merchandise.selectedOptions[1].value;
 
   console.log(lineItem);
 
   const lineAttributes = {
-    size: size,
-    color: color,
     price: lineItem.cost.totalAmount,
   };
 
   return (
     <div className="p-2">
-      <div className="flex gap-2 bg-formDarkBlue">
-        <Image data={merchandise.image} width={125} height={125} />
-        <div className="flex-1 items-center text-pDetailsUnselectedBlue text-lg my-2">
-          A:\{merchandise.product.title}
+      <div className="flex bg-[#d9e2ee] items-center  clip-path-notched-xlg">
+        <div className="bg-[#a1acbf] p-1 clip-path-notched-xlg ">
+          <div className="pt-4 px-4 clip-path-notched-xlg bg-[#ccd2e1] flex justify-center items-center ">
+            <Image
+              className="relative bottom-0"
+              data={merchandise.image}
+              width={125}
+              height={125}
+            />
+          </div>
+        </div>
+        <div className="bg-[#a1acbf] py-12 px-12 w-fit clip-path-notched-r-xlg h-fit flex-1 items-center text-white text-2xl my-2">
+          {merchandise.product.title}
           <div className="ml-2">
-            {Object.entries(lineAttributes).map(([key, value]) => (
+            {/* {Object.entries(lineAttributes).map(([key, value]) => (
               <div
                 key={key}
                 className="text-pDetailsUnselectedBlue text-md leading-tight"
-              >
-                {key === 'price' ? (
-                  <div className=" items-center">
-                    <div className="text-pDetailsUnselectedBlue flex text-md leading-tight">
-                      &lt;{key}&gt;:&nbsp;
-                      <span className="text-yellow flex">
-                        <Money data={lineItem.cost.totalAmount} />
-                        &nbsp;
-                        {`${merchandise.price.currencyCode}`}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    &lt;{key}&gt;: <span className="text-white">{value}</span>
-                  </>
-                )}
-              </div>
-            ))}
+              ></div>
+            ))} */}
           </div>
         </div>
-        <ItemRemoveButton lineIds={[lineItem.id]} />
+        {/* <ItemRemoveButton lineIds={[lineItem.id]} /> */}
       </div>
     </div>
   );
@@ -148,20 +136,20 @@ export function CartSummary({cost}) {
     <>
       <dl>
         <div className="flex items-center justify-between text-2xl">
-          <dt> &lt;subtotal&gt;</dt>
-          <dd>
+          <dt className="border-text text-white">Subtotal</dt>
+          <dd className="border-text text-[#ffe48b]">FREE</dd>
+          {/* <dd>
             {cost?.subtotalAmount?.amount ? (
               <Money data={cost?.subtotalAmount} />
             ) : (
               '-'
             )}
-          </dd>
+          </dd> */}
         </div>
-        <div className="flex items-center justify-between">
-          <dt className="flex items-center">
-            <span>Shipping estimate</span>
+        <div className="flex items-center justify-center">
+          <dt className="flex text-lg items-center text-[#9099a9]">
+            <span>Shipping and taxes calculated at check out.</span>
           </dt>
-          <dd className="text-green-600">Free and carbon neutral</dd>
         </div>
       </dl>
     </>
@@ -171,13 +159,17 @@ export function CartActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div className="flex flex-col mt-2">
-      <a
-        href={checkoutUrl}
-        className="bg-black text-white px-6 py-3 w-full rounded-md text-center font-medium"
+    <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
+      <div
+        className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
+    before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
       >
-        Continue to Checkout
-      </a>
+        <a href={checkoutUrl} className="">
+          <span className="uppercase relative text-white text-3xl light-text">
+            Continue to Checkout
+          </span>
+        </a>
+      </div>
     </div>
   );
 }
