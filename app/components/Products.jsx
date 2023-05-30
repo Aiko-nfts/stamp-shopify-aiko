@@ -2,13 +2,19 @@ import React, {useState, useEffect} from 'react';
 import {Link} from '@remix-run/react';
 import {AddToCartButton} from '@shopify/hydrogen-react';
 import {useLocation} from '@remix-run/react';
-
+import * as CryptoJS from 'crypto-js';
 import {useMatches, useFetcher} from '@remix-run/react';
 
 const Products = ({products}) => {
   const location = useLocation();
-  console.log(location);
+  const encryptedObject = location.search.substring(8);
   const [hovered, setHovered] = useState(null);
+  const [key, setKey] = useState('aikoaikoaiko');
+  const [decryptedObject, setDecryptedObject] = useState({
+    rewards: 0,
+    wallet: 0,
+  });
+  const [allocatedRewards, setAllocatedRewards] = useState(0);
   const [root] = useMatches();
 
   const fetcher = useFetcher();
@@ -28,6 +34,35 @@ const Products = ({products}) => {
     }
   };
 
+  function decrypt(ciphertext, key) {
+    const bytes = CryptoJS.AES.decrypt(ciphertext, key);
+    const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+    return JSON.parse(decryptedData);
+  }
+
+  function isValidDecryptedObject(object) {
+    return (
+      object &&
+      typeof object === 'object' &&
+      'rewards' in object &&
+      'wallet' in object
+    );
+  }
+
+  useEffect(() => {
+    const object = decrypt(encryptedObject, key);
+    if (isValidDecryptedObject(object)) {
+      setDecryptedObject(object);
+      setAllocatedRewards(object.rewards);
+      console.log('Decrypted object:', object);
+    } else {
+      console.error(
+        'Decrypted object does not have the expected shape:',
+        object,
+      );
+    }
+  }, [encryptedObject]);
+
   // const handleAddToCart = async (e) => {
   //   const variants = e.variants.edges;
 
@@ -43,7 +78,7 @@ const Products = ({products}) => {
 
   return (
     <ul className="flex gap-6 items-center justify-center">
-      {products.edges.slice(0, 2).map(({node: product}) => (
+      {products.edges.slice(0, allocatedRewards).map(({node: product}) => (
         <fetcher.Form action="/cart" method="post" key={product.id}>
           <input type="hidden" name="cartAction" value={'ADD_TO_CART'} />
           <input
