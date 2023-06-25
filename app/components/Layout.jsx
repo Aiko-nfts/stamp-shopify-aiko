@@ -111,7 +111,7 @@ export function Layout({children, title}) {
 
       <div className="before:opacity-90 before:rotate-200 before:translate-x-20 before:absolute before:block before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-l before:from-white via-transparent"></div>
 
-      <div className="flex xl:w-6-12 3xl:w-3/4 5xl:w-2/5">
+      <div className="flex w-[94vh]">
         <img
           className="w-56 xl:w-64	top-0 left-0 relative z-50 -mt-32 xl:-mt-36"
           src={meepo}
@@ -119,7 +119,7 @@ export function Layout({children, title}) {
         />
       </div>
 
-      <div className=" bg-[#84858c] clip-path-notched-xlg absolute w-9/10 h-5/6 xl:w-8/12 xl:h-9/10 p-1 3xl:w-3/4 3xl:h-4/5 4xl:w-8/12 5xl:w-2/4 5xl:h-3/5">
+      <div className=" bg-[#84858c] clip-path-notched-xlg absolute w-[94vh] h-5/6 xl:w-8/12 xl:h-9/10 p-1 3xl:w-3/4 3xl:h-4/5 4xl:w-8/12 5xl:w-2/4 5xl:h-3/5">
         <div className=" bg-[#d1d8e2] clip-path-notched-xlg relative w-full h-full  flex items-center justify-center">
           <span className="absolute bottom-0 text-xl flex justify-center items-center py-3 2xl:py-6">
             <img className="h-8 w-8" src={aiko} alt="" />

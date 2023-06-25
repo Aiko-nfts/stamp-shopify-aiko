@@ -7,6 +7,7 @@ import Products from '../components/Products';
 import opensea from '../images/opensea.svg';
 import discord from '../images/discord.svg';
 import twitter from '../images/twitter.svg';
+import computer from '../images/aikocomputer.png';
 import {Drawer, useDrawer} from '~/components/Drawer';
 import {CartLineItems, CartActions, CartSummary} from '~/components/Cart';
 import {useMatches} from '@remix-run/react';
@@ -108,6 +109,10 @@ export default function Index() {
   const [root] = useMatches();
   const cart = root.data?.cart;
 
+  const couponError = useSelector((state) => state.error.couponError);
+
+  console.log(couponError);
+
   function openDrawerClick() {
     openDrawer();
   }
@@ -145,56 +150,92 @@ export default function Index() {
               <span className="bg-[#e39858] py-5 2xl:py-6 pl-3 2xl:pl-4 mr-1 relative"></span>
               <span className="bg-[#e39858] py-5 2xl:py-6 pl-2 2xl:pl-3 mr-1 relative"></span>
               <span className="bg-[#e39858] py-5 2xl:py-6 pl-1 2xl:pl-2 mr-1 relative"></span>
-              <span className="text-white text-3xl 2xl:text-4-5xl border-text mt-2 relative ml-3 2xl:ml-4">
-                Redeem Process
-              </span>
+              {couponError ? (
+                <span className="text-white text-3xl 2xl:text-4-5xl border-text mt-2 relative ml-3 2xl:ml-4">
+                  error_msg.exe
+                </span>
+              ) : (
+                <span className="text-white text-3xl 2xl:text-4-5xl border-text mt-2 relative ml-3 2xl:ml-4">
+                  Redeem Process
+                </span>
+              )}
             </div>
           </div>
           <div className="bg-[#cfd3db] px-4 pt-6 clip-path-notched-bt-xlg">
             <div className="py-8 px-10 clip-path-notched-xlg flex items-center flex-col justify-center bg-[#adb9cf]">
               <Products products={products} />
-              <span className="mt-10 text-white text-2xl 2xl:text-4xl text-center bold-text">
-                You have{' '}
-                <span className="text-[#edbc5a] text-2xl 2xl:text-4xl">{`${redeemableAmount} free`}</span>{' '}
-                reward(s) to redeem,
-                <br />
-                Click on proceed to go to checkout and shipping details!
-              </span>
+              {couponError ? (
+                <div className="flex flex-col justify-center items-center">
+                  <img className="w-2/5 h-2/5" src={computer} alt="" />
+                  <span className="mt-3 text-white text-2xl 2xl:text-4xl text-center bold-text">
+                    It looks like you don't have a coupon code!
+                    <br /> Please generate your coupon link on
+                    <br />
+                    <a href="https://aikovirtual.com/userpanel">
+                      <span className="text-[#edbc5a] text-2xl 2xl:text-4xl">
+                        www.aikovirtual.com/userpanel
+                      </span>{' '}
+                    </a>
+                    <br />
+                    before accessing this page.
+                  </span>
+                </div>
+              ) : (
+                <span className="mt-10 text-white text-2xl 2xl:text-4xl text-center bold-text">
+                  You have{' '}
+                  <span className="text-[#edbc5a] text-2xl 2xl:text-4xl">{`${redeemableAmount} free`}</span>{' '}
+                  reward(s) to redeem,
+                  <br />
+                  Click on proceed to go to checkout and shipping details!
+                </span>
+              )}
             </div>
+
             <div className="flex justify-center items-center relative pt-2 overlap">
               <div className="z-10 bg-[#cfd3db] py-2 px-8 clip-path-notched-tp-xlg w-fit">
                 <div className="bg-[#363636] px-0-5 2xl:px-1-5 pt-1-5 pb-3 2xl:pb-4 clip-path-notched-sm">
-                  <Await resolve={cart}>
-                    {(data) => (
-                      <>
-                        {data?.totalQuantity === redeemableAmount ? (
-                          <>
-                            <button
-                              onClick={() => openDrawerClick()}
-                              className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] px-6 pt-3 pb-2 clip-path-notched-sm
-                    before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
-                            >
-                              <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
-                                Proceed
-                              </span>
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
-                  before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
-                            >
-                              <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
-                                Proceed
-                              </span>
-                            </button>
-                          </>
-                        )}
-                      </>
-                      // ... render some JSX using the data
-                    )}
-                  </Await>
+                  {couponError ? (
+                    <button
+                      className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+   before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+                    >
+                      <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
+                        Error
+                      </span>
+                    </button>
+                  ) : (
+                    <Await resolve={cart}>
+                      {(data) => (
+                        <>
+                          {data?.totalQuantity === redeemableAmount ? (
+                            <>
+                              <button
+                                onClick={() => openDrawerClick()}
+                                className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] px-6 pt-3 pb-2 clip-path-notched-sm
+                before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+                              >
+                                <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
+                                  Proceed
+                                </span>
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+              before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+                              >
+                                <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
+                                  Proceed
+                                </span>
+                              </button>
+                            </>
+                          )}
+                        </>
+                        // ... render some JSX using the data
+                      )}
+                    </Await>
+                  )}
                 </div>
               </div>
               <span className="absolute bottom-0 w-3/4 border-solid border-8 border-[#aeafba] z-0"></span>

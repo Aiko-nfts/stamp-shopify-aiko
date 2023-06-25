@@ -7,11 +7,13 @@ import {useMatches, useFetcher} from '@remix-run/react';
 import {useDispatch, useSelector} from 'react-redux';
 import {setCouponCode} from '../state/codeSlice';
 import {setRedeemableAmount} from '../state/redeemableSlice';
+import {setCouponError} from '../state/couponErrorSlice';
 
 const Products = ({products}) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const encryptedObject = location.search.substring(8);
+  const [noCoupon, setNoCoupon] = useState(false);
   const [hovered, setHovered] = useState(null);
   const [key, setKey] = useState('aikoaikoaiko');
   const [decryptedObject, setDecryptedObject] = useState({
@@ -86,18 +88,23 @@ const Products = ({products}) => {
   }
 
   useEffect(() => {
-    const object = decrypt(encryptedObject, key);
-    if (isValidDecryptedObject(object)) {
-      setDecryptedObject(object);
-      setAllocatedRewards(object.rewards);
-      console.log('Decrypted object:', object);
-      dispatch(setCouponCode(object.wallet));
-      dispatch(setRedeemableAmount(object.rewards));
-    } else {
-      console.error(
-        'Decrypted object does not have the expected shape:',
-        object,
-      );
+    try {
+      const object = decrypt(encryptedObject, key);
+      if (isValidDecryptedObject(object)) {
+        setDecryptedObject(object);
+        setAllocatedRewards(object.rewards);
+        console.log('Decrypted object:', object);
+        dispatch(setCouponCode(object.wallet));
+        dispatch(setRedeemableAmount(object.rewards));
+      } else {
+        console.error(
+          'Decrypted object does not have the expected shape:',
+          object,
+        );
+      }
+    } catch (error) {
+      setNoCoupon(true);
+      dispatch(setCouponError(true));
     }
   }, [encryptedObject]);
 

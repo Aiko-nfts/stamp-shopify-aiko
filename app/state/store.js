@@ -5,6 +5,7 @@ import couponReducer from './couponSlice';
 import redeemableReducer from './redeemableSlice';
 import rewardReducer from './rewardSlice';
 import productReducer from './productSlice';
+import couponErrorReducer from './couponErrorSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     reward: rewardReducer,
     redeemable: redeemableReducer,
     product: productReducer,
+    error: couponErrorReducer,
   },
 });
