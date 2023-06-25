@@ -1,11 +1,9 @@
 import React, {useState, useEffect, Suspense} from 'react';
 // import {fetchQuery} from '@remix-run/react';
 import {useFetcher} from '@remix-run/react';
-
 import {Await} from '@remix-run/react';
 import {useLoaderData, Link} from '@remix-run/react';
 import Products from '../components/Products';
-import ProductDetails from '../components/ProductDetails';
 import opensea from '../images/opensea.svg';
 import discord from '../images/discord.svg';
 import twitter from '../images/twitter.svg';
@@ -13,6 +11,7 @@ import {Drawer, useDrawer} from '~/components/Drawer';
 import {CartLineItems, CartActions, CartSummary} from '~/components/Cart';
 import {useMatches} from '@remix-run/react';
 import {AddToCartButton} from '@shopify/hydrogen-react';
+import {useSelector} from 'react-redux';
 
 export const meta = () => {
   return {
@@ -67,7 +66,7 @@ function CartDrawer({cart, close}) {
             {data?.totalQuantity > 0 ? (
               <>
                 <div className="flex flex-1 overflow-y-hidden border-formLightBlue">
-                  <div className="flex flex-col space-y-7 justify-between items-center px-3 py-3">
+                  <div className="bg-[#d9e2ee] clip-path-notched-xlg m-5 flex flex-col space-y-7 justify-between items-center px-3 py-3 overflow-y-auto">
                     <CartLineItems linesObj={data.lines} />
                   </div>
                 </div>
@@ -97,10 +96,14 @@ function CartDrawer({cart, close}) {
 }
 
 export default function Index() {
+  const redeemableAmount = useSelector(
+    (state) => state.redeemable.redeemableAmount,
+  );
+  console.log(redeemableAmount);
   const {products} = useLoaderData();
   console.log(products);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const redeemable = 4;
+  const redeemable = products?.edges.length;
   const {isOpen, openDrawer, closeDrawer} = useDrawer();
   const [root] = useMatches();
   const cart = root.data?.cart;
@@ -132,27 +135,27 @@ export default function Index() {
     <div className="relative flex justify-center items-center h-full">
       <main className="negative-m flex justify-center items-center">
         <section className="bg-[#363636] px-2 pt-2 pb-10 clip-path-notched-xlg">
-          <div className="relative h-22 bg-[#85aae4] clip-path-notched-tp-xlg">
+          <div className="relative h-16 2xl:h-22 bg-[#85aae4] clip-path-notched-tp-xlg">
             <div
               className="absolute w-full top-0 right-0 bottom-0 left-0 bg-[#658ac7] px-4 pt-6 blue-stripe
           before:absolute before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-[#f0a460] before:orange-stripe
           after:absolute after:w-full after:top-0 after:right-0 after:bottom-0 after:left-0 after:bg-[#ffd36a] after:yellow-stripe"
             ></div>
             <div className="h-full flex justify-start items-center ml-8">
-              <span className="bg-[#e39858] py-6 pl-4 mr-1 relative"></span>
-              <span className="bg-[#e39858] py-6 pl-3 mr-1 relative"></span>
-              <span className="bg-[#e39858] py-6 pl-2 mr-1 relative"></span>
-              <span className="text-white text-4-5xl border-text mt-2 relative ml-4">
+              <span className="bg-[#e39858] py-5 2xl:py-6 pl-3 2xl:pl-4 mr-1 relative"></span>
+              <span className="bg-[#e39858] py-5 2xl:py-6 pl-2 2xl:pl-3 mr-1 relative"></span>
+              <span className="bg-[#e39858] py-5 2xl:py-6 pl-1 2xl:pl-2 mr-1 relative"></span>
+              <span className="text-white text-3xl 2xl:text-4-5xl border-text mt-2 relative ml-3 2xl:ml-4">
                 Redeem Process
               </span>
             </div>
           </div>
           <div className="bg-[#cfd3db] px-4 pt-6 clip-path-notched-bt-xlg">
-            <div className="py-10 px-10 clip-path-notched-xlg flex items-center flex-col justify-center bg-[#adb9cf]">
+            <div className="py-8 px-10 clip-path-notched-xlg flex items-center flex-col justify-center bg-[#adb9cf]">
               <Products products={products} />
-              <span className="mt-10 text-white text-4xl text-center bold-text">
+              <span className="mt-10 text-white text-2xl 2xl:text-4xl text-center bold-text">
                 You have{' '}
-                <span className="text-[#edbc5a] text-4xl">{`${redeemable} free`}</span>{' '}
+                <span className="text-[#edbc5a] text-2xl 2xl:text-4xl">{`${redeemableAmount} free`}</span>{' '}
                 reward(s) to redeem,
                 <br />
                 Click on proceed to go to checkout and shipping details!
@@ -160,16 +163,38 @@ export default function Index() {
             </div>
             <div className="flex justify-center items-center relative pt-2 overlap">
               <div className="z-10 bg-[#cfd3db] py-2 px-8 clip-path-notched-tp-xlg w-fit">
-                <div className="bg-[#363636] px-1-5 pt-1-5 pb-4 clip-path-notched-sm">
-                  <button
-                    onClick={() => openDrawerClick()}
-                    className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] px-6 pt-3 pb-2 clip-path-notched-sm
+                <div className="bg-[#363636] px-0-5 2xl:px-1-5 pt-1-5 pb-3 2xl:pb-4 clip-path-notched-sm">
+                  <Await resolve={cart}>
+                    {(data) => (
+                      <>
+                        {data?.totalQuantity === redeemableAmount ? (
+                          <>
+                            <button
+                              onClick={() => openDrawerClick()}
+                              className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] px-6 pt-3 pb-2 clip-path-notched-sm
                     before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
-                  >
-                    <span className="relative text-white text-4xl uppercase light-text">
-                      Proceed
-                    </span>
-                  </button>
+                            >
+                              <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
+                                Proceed
+                              </span>
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+                  before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+                            >
+                              <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
+                                Proceed
+                              </span>
+                            </button>
+                          </>
+                        )}
+                      </>
+                      // ... render some JSX using the data
+                    )}
+                  </Await>
                 </div>
               </div>
               <span className="absolute bottom-0 w-3/4 border-solid border-8 border-[#aeafba] z-0"></span>
@@ -184,11 +209,15 @@ export default function Index() {
                 {socials.map((social) => (
                   <div
                     key={social.link}
-                    className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-3"
+                    className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
                   >
-                    <div className="bg-[#afbdc5] py-4 p-3 clip-path-notched-lrg flex items-center justify-center">
+                    <div className="bg-[#afbdc5] py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center">
                       <a href={social.link}>
-                        <img className=" white" src={social.icon} alt="" />
+                        <img
+                          className="white w-full"
+                          src={social.icon}
+                          alt=""
+                        />
                       </a>
                     </div>
                   </div>

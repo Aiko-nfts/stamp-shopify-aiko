@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useCart} from '@shopify/hydrogen-react';
 import {Link, useFetcher} from '@remix-run/react';
 import {flattenConnection, Image, Money} from '@shopify/hydrogen-react';
 import {CART_QUERY} from '../root';
+import {useDispatch, useSelector} from 'react-redux';
+import {setActiveReward} from '../state/rewardSlice';
+import {setShowCoupon} from '../state/couponSlice';
+import {setCheckoutUrl} from '../state/checkoutSlice';
 
 const Cart = () => {
   const {cart} = useCart();
@@ -18,6 +22,12 @@ const Cart = () => {
 
 export function CartLineItems({linesObj}) {
   const lines = flattenConnection(linesObj);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setActiveReward(lines));
+  }, [lines]);
+
   return (
     <div>
       {lines.map((line) => {
@@ -28,8 +38,6 @@ export function CartLineItems({linesObj}) {
 }
 function LineItem({lineItem}) {
   const {merchandise, quantity} = lineItem;
-
-  console.log(lineItem);
 
   const lineAttributes = {
     price: lineItem.cost.totalAmount,
@@ -59,7 +67,7 @@ function LineItem({lineItem}) {
             ))} */}
           </div>
         </div>
-        {/* <ItemRemoveButton lineIds={[lineItem.id]} /> */}
+        <ItemRemoveButton lineIds={[lineItem.id]} />
       </div>
     </div>
   );
@@ -156,19 +164,61 @@ export function CartSummary({cost}) {
   );
 }
 export function CartActions({checkoutUrl}) {
+  const showCoupon = useSelector((state) => state.coupon.showCoupon);
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setShowCoupon(true));
+    dispatch(setCheckoutUrl(checkoutUrl));
+  };
+
   if (!checkoutUrl) return null;
 
+  // const [showCoupon, setShowCoupon] = useState(false);
+  const [timer, setTimer] = useState(5);
+
+  useEffect(() => {
+    let interval;
+    if (showCoupon && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(interval);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [showCoupon, timer]);
+
+  useEffect(() => {
+    if (timer === 0) {
+      window.open(checkoutUrl);
+    }
+  }, [timer, checkoutUrl]);
+
   return (
-    <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
-      <div
-        className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
+    <div>
+      {/* {showCoupon && (
+        <div className="bg-[#6291db] w-1/2 h-1/2 text-4xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+          <p>Your coupon code is: CODE123</p>
+          <p>Redirecting in {timer} seconds...</p>
+        </div>
+      )} */}
+      <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
+        <div
+          className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
     before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
-      >
-        <a href={checkoutUrl} className="">
-          <span className="uppercase relative text-white text-3xl light-text">
-            Continue to Checkout
-          </span>
-        </a>
+        >
+          <button onClick={() => handleClick()}>
+            <span className="uppercase relative text-white text-3xl light-text">
+              Continue to Checkout
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );

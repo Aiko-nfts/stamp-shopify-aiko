@@ -1,9 +1,14 @@
-import {useEffect, Suspense} from 'react';
+import {useEffect, useState, Suspense} from 'react';
 import {Await} from '@remix-run/react';
 import {Drawer, useDrawer} from '~/components/Drawer';
 import {useMatches} from '@remix-run/react';
 import {CartLineItems, CartActions, CartSummary} from '~/components/Cart';
 import stars from '../images/stars.png';
+import aiko from '../images/aiko-logo.svg';
+import meepo from '../images/aikomeepologo.svg';
+
+import {useDispatch} from 'react-redux';
+import {setActiveReward} from '../state/rewardSlice';
 
 function CartHeader({cart, openDrawer}) {
   return (
@@ -79,29 +84,48 @@ function CartDrawer({cart, close}) {
 export function Layout({children, title}) {
   const {isOpen, openDrawer, closeDrawer} = useDrawer();
   const [root] = useMatches();
+  const [showCoupon, setShowCoupon] = useState(false);
+  const dispatch = useDispatch();
   const cart = root.data?.cart;
 
-  useEffect(() => {
-    openDrawer();
-  }, []);
+  const cartCheck = new Promise((resolve, reject) => {
+    resolve(root.data?.cart);
+  });
+
+  cartCheck
+    .then((value) => {
+      const nodes = value.lines.edges.map((edge) => edge.node);
+      dispatch(setActiveReward(nodes));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
       <img
-        className="opacity-30 absolute w-full h-full animate-slide scale-150
-        
-        "
+        className="opacity-30 absolute w-full h-full animate-slide scale-150"
         src={stars}
         alt=""
       />
 
       <div className="before:opacity-90 before:rotate-200 before:translate-x-20 before:absolute before:block before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-l before:from-white via-transparent"></div>
 
-      <div className=" bg-[#84858c] clip-path-notched-xlg absolute w-8/12 h-5/6 p-1">
+      <div className="flex xl:w-6-12 3xl:w-3/4 5xl:w-2/5">
+        <img
+          className="w-56 xl:w-64	top-0 left-0 relative z-50 -mt-32 xl:-mt-36"
+          src={meepo}
+          alt=""
+        />
+      </div>
+
+      <div className=" bg-[#84858c] clip-path-notched-xlg absolute w-9/10 h-5/6 xl:w-8/12 xl:h-9/10 p-1 3xl:w-3/4 3xl:h-4/5 4xl:w-8/12 5xl:w-2/4 5xl:h-3/5">
         <div className=" bg-[#d1d8e2] clip-path-notched-xlg relative w-full h-full  flex items-center justify-center">
-          <span className="absolute bottom-0 text-xl flex justify-center items-center py-6 ">
-            <img src="https://placehold.co/50x50" alt="" />
-            <p className="text-[#84858c]">Powered By Aiko Virtual</p>
+          <span className="absolute bottom-0 text-xl flex justify-center items-center py-3 2xl:py-6">
+            <img className="h-8 w-8" src={aiko} alt="" />
+            <p className="text-[#84858c] tracking-tighter ml-2 text-lg">
+              Powered By Aiko Virtual
+            </p>
             <CartHeader cart={cart} openDrawer={openDrawer} />
           </span>
         </div>
@@ -114,7 +138,7 @@ export function Layout({children, title}) {
         {children}
       </main>
 
-      <Drawer open={isOpen} onClose={closeDrawer}>
+      <Drawer showCoupon={showCoupon} open={isOpen} onClose={closeDrawer}>
         <CartDrawer cart={cart} close={closeDrawer} />
       </Drawer>
     </div>

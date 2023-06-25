@@ -10,6 +10,8 @@ import tailwind from './styles/tailwind-build.css';
 import favicon from '../public/favicon.svg';
 import {Layout} from './components/Layout';
 import {defer} from '@shopify/remix-oxygen';
+import {Provider} from 'react-redux';
+import {store} from './state/store';
 
 export const links = () => {
   return [
@@ -63,20 +65,22 @@ export default function App() {
   const {name} = data.layout.shop;
 
   return (
-    <html lang="en">
-      <head>
-        <Meta />
-        <Links />
-        <link rel="stylesheet" href="https://use.typekit.net/dmh5nuz.css" />
-      </head>
-      <body>
-        <Layout title={name}>
-          <Outlet />
-        </Layout>
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+    <Provider store={store}>
+      <html lang="en">
+        <head>
+          <Meta />
+          <Links />
+          <link rel="stylesheet" href="https://use.typekit.net/dmh5nuz.css" />
+        </head>
+        <body>
+          <Layout title={name}>
+            <Outlet />
+          </Layout>
+          <ScrollRestoration />
+          <Scripts />
+        </body>
+      </html>
+    </Provider>
   );
 }
 

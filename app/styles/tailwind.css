@@ -88,6 +88,10 @@
     font-size: 2.5rem/* 36px */;
     line-height: 2.75rem/* 40px */;
   }
+  .px-0-5 {
+    padding-left: 0.175rem;
+    padding-right: 0.175rem;
+  }
   .px-1-5 {
     padding-left: 0.275rem;
     padding-right: 0.275rem;
@@ -124,14 +128,41 @@
   .h-62 {
     height: 15.65rem;
   }
+  .h-50 {
+    height: 12.5rem;
+  }
   .h-22 {
     height: 5.55rem;
+  }
+  .h-565 {
+    height: 70%;
+  }
+  .w-345 {
+    width: 75%;
+  }
+  .w-38 {
+    width: 9.25rem;
+  }
+  .w-39 {
+    width: 9.5rem;
+  }
+  .w-42 {
+    width: 9.75rem;
+  }
+  .w-43 {
+    width: 10rem;
   }
   .w-54 {
     width: 13.25rem;
   }
   .w-50 {
     width: 12.65rem;
+  }
+  .w-6-12 {
+    width: 55%;
+  }
+  .w-1-8 {
+    width: 8%;
   }
   .clip-path-notched-xlg {
     -webkit-clip-path: polygon(
@@ -190,6 +221,18 @@
       100% 24px,/* top right */ 
       100% calc(100% - 24px),/* bottom right */ 
       calc(100% - 24px) 100%,/* bottom right */ 
+      0px 100%,/* bottom left */ 
+      0 calc(100% - 0px) /* bottom left */
+  );
+  }
+  .clip-path-notched-r-lrg {
+    -webkit-clip-path: polygon(
+      0% 0px,/* top left */ 
+      0px 0%,/* top left */
+      calc(100% - 14px) 0%,/* top right */ 
+      100% 14px,/* top right */ 
+      100% calc(100% - 14px),/* bottom right */ 
+      calc(100% - 14px) 100%,/* bottom right */ 
       0px 100%,/* bottom left */ 
       0 calc(100% - 0px) /* bottom left */
   );
@@ -265,5 +308,56 @@
       0px 100%,/* bottom left */ 
       0 calc(100% - 0px) /* bottom left */
   );
+  }
+
+  .closeShadow {
+    background-color: #393939;
+    width: fit-content;
+    padding: 0.125rem 0.1rem;
+    margin-right: 1rem
+}
+
+  .closeHover {
+  position: relative;
+  color: white;
+  font-size: 2.3vh;
+  text-shadow: -0.15vh 0.15vh 0 #000, 0.15vh 0.15vh 0 #000,
+    0.15vh -0.15vh 0 #000, -0.15vh -0.15vh 0 #000;
+  width: 4vh;
+  border: none;
+  font-family: arial, serif;
+  padding-bottom: 0.5vh;
+  transition: opacity 0.25s linear;
+}
+
+.closeHover::before {
+  position: absolute;
+  content: "x";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, #f38a65, #ffca62);
+  transition: opacity 0.25s linear;
+  opacity: 0;
+}
+
+.closeHover::after {
+  position: absolute;
+  content: "x";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom,#ffca62, #e55f69);
+  z-index: 10;
+  transition: opacity 0.25s linear;
+}
+
+.closeHover:hover::after {
+  opacity: 0;
+}
+  .closeHover:hover::before {
+      opacity: 100;
   }
 }
