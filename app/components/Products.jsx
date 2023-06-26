@@ -39,6 +39,7 @@ const Products = ({products}) => {
 
   useEffect(() => {
     setInCart(rewardsInCart?.map((object) => object.merchandise.product.id));
+    console.log(inCart);
   }, [rewardsInCart]);
 
   const handleAddToCart = (product) => {
@@ -213,10 +214,10 @@ const Products = ({products}) => {
               >
                 {product.images.edges.length > 0 && (
                   <div
-                    className={`ease-in clip-path-notched-lrg w-54 h-70 pb-3 flex justify-center items-center transition-all duraction-200 bg-[#363636]`}
+                    className={`ease-in clip-path-notched-lrg w-43 h-54 2xl:w-54 2xl:h-70 pt-1 pb-3 flex justify-center items-center transition-all duraction-200 bg-[#363636]`}
                   >
                     <div
-                      className={`ease-in clip-path-notched-lrg w-50 h-62 flex justify-center items-center transition-all duraction-200 ${
+                      className={`ease-in clip-path-notched-lrg w-39 h-52 2xl:w-50 2xl:h-62 flex justify-center items-center transition-all duraction-200 ${
                         inCart.includes(product.id)
                           ? 'bg-[#ffe9a7]'
                           : hovered === product.id
@@ -227,7 +228,7 @@ const Products = ({products}) => {
                       <div
                         onMouseEnter={() => setHovered(product.id)}
                         onMouseLeave={() => setHovered(null)}
-                        className={`ease-in clip-path-notched-lrg w-48 h-60 relative transition-all	 bg-gradient-to-b duraction-200 ${
+                        className={`ease-in clip-path-notched-lrg w-36 h-50 2xl:w-48 2xl:h-60 relative transition-all bg-gradient-to-b duraction-200 ${
                           inCart.includes(product.id)
                             ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
                             : hovered === product.id
@@ -240,7 +241,7 @@ const Products = ({products}) => {
                         <img
                           src={product.images.edges[0].node.transformedSrc}
                           alt={product.title}
-                          className="absolute top-0 left-0 w-full h-full object-cover"
+                          className="absolute top-0 left-0 w-full h-full object-cover font-thin"
                         />
                         <div
                           className={`ease-in overlay absolute top-0 left-0 w-full h-full transition-all	 bg-gradient-to-b from-transparent via-transparent duraction-200
@@ -252,7 +253,7 @@ const Products = ({products}) => {
                         : 'to-[#3f5989]'
                     }`}
                         ></div>
-                        <span className="bottom-0 absolute w-full flex justify-center items-center text-white text-xl pb-6">
+                        <span className="bottom-0 absolute w-full flex justify-center tracking-tighter items-center text-white text-md 2xl:text-xl pb-3 2xl:pb-6">
                           {product.title}
                         </span>
                       </div>
