@@ -901,6 +901,9 @@ video {
 .h-16 {
   height: 4rem;
 }
+.h-2\/5 {
+  height: 40%;
+}
 .h-3 {
   height: 0.75rem;
 }
@@ -929,12 +932,6 @@ video {
 .h-screen {
   height: 100vh;
 }
-.h-32 {
-  height: 8rem;
-}
-.h-2\/5 {
-  height: 40%;
-}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -949,6 +946,9 @@ video {
 }
 .w-14 {
   width: 3.5rem;
+}
+.w-2\/5 {
+  width: 40%;
 }
 .w-3\/4 {
   width: 75%;
@@ -965,11 +965,14 @@ video {
 .w-56 {
   width: 14rem;
 }
+.w-60 {
+  width: 15rem;
+}
 .w-8 {
   width: 2rem;
 }
-.w-9\/10 {
-  width: 90%;
+.w-\[94vh\] {
+  width: 94vh;
 }
 .w-auto {
   width: auto;
@@ -980,45 +983,6 @@ video {
 }
 .w-full {
   width: 100%;
-}
-.w-\[10vh\] {
-  width: 10vh;
-}
-.w-\[25vh\] {
-  width: 25vh;
-}
-.w-\[15vh\] {
-  width: 15vh;
-}
-.w-\[12vh\] {
-  width: 12vh;
-}
-.w-\[16vh\] {
-  width: 16vh;
-}
-.w-\[24vh\] {
-  width: 24vh;
-}
-.w-\[28vh\] {
-  width: 28vh;
-}
-.w-\[52vh\] {
-  width: 52vh;
-}
-.w-\[82vh\] {
-  width: 82vh;
-}
-.w-\[92vh\] {
-  width: 92vh;
-}
-.w-\[94vh\] {
-  width: 94vh;
-}
-.w-32 {
-  width: 8rem;
-}
-.w-2\/5 {
-  width: 40%;
 }
 .min-w-\[0\.75rem\] {
   min-width: 0.75rem;
@@ -1219,6 +1183,9 @@ video {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.resize {
+  resize: both;
 }
 .flex-row {
   flex-direction: row;
@@ -1457,6 +1424,10 @@ video {
 .p-2 {
   padding: 0.5rem;
 }
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -1535,6 +1506,9 @@ video {
 }
 .pb-4 {
   padding-bottom: 1rem;
+}
+.pb-5 {
+  padding-bottom: 1.25rem;
 }
 .pb-6 {
   padding-bottom: 1.5rem;
@@ -1771,12 +1745,6 @@ video {
     );
   }
 
-@media (min-width: 1280px) {
-  .xl\:w-6-12 {
-    width: 55%;
-  }
-}
-
 @media (min-width: 1600px) and (min-height: 900px) {
   .\32xl\:text-4-5xl {
     font-size: 2.5rem/* 36px */;
@@ -1952,7 +1920,7 @@ video {
   opacity: 1;
 }
 
-@media (min-width: 600px) and (max-width: 767px), (min-width: 868px) {
+@media (min-width: 780px) {
 
   .md\:px-12 {
     padding-left: 3rem;
@@ -2074,9 +2042,5 @@ video {
 
   .\35xl\:w-2\/4 {
     width: 50%;
-  }
-
-  .\35xl\:w-2\/5 {
-    width: 40%;
   }
 }

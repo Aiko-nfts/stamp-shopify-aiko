@@ -109,6 +109,24 @@ export default function Index() {
   const [root] = useMatches();
   const cart = root.data?.cart;
 
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0,
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  console.log(windowWidth);
+
   const couponError = useSelector((state) => state.error.couponError);
 
   console.log(couponError);
@@ -116,10 +134,6 @@ export default function Index() {
   function openDrawerClick() {
     openDrawer();
   }
-
-  // useEffect(() => {
-  //   openDrawer();
-  // }, []);
 
   const socials = [
     {
@@ -136,7 +150,7 @@ export default function Index() {
     },
   ];
 
-  return (
+  return windowWidth > 1024 ? (
     <div className="relative flex justify-center items-center h-full">
       <main className="negative-m flex justify-center items-center">
         <section className="bg-[#363636] px-2 pt-2 pb-10 clip-path-notched-xlg">
@@ -272,6 +286,49 @@ export default function Index() {
         </Drawer>
       </main>
     </div>
+  ) : (
+    <section className="bg-[#363636] px-1 pt-1 pb-5 clip-path-notched-xlg">
+      <div className="relative h-16 2xl:h-22 bg-[#85aae4] clip-path-notched-tp-xlg">
+        <div
+          className="absolute w-full top-0 right-0 bottom-0 left-0 bg-[#658ac7] px-4 pt-6 blue-stripe
+          before:absolute before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-[#f0a460] before:orange-stripe
+          after:absolute after:w-full after:top-0 after:right-0 after:bottom-0 after:left-0 after:bg-[#ffd36a] after:yellow-stripe"
+        ></div>
+        <div className="h-full flex justify-start items-center ml-8">
+          <span className="bg-[#e39858] py-5 2xl:py-6 pl-3 2xl:pl-4 mr-1 relative"></span>
+          <span className="bg-[#e39858] py-5 2xl:py-6 pl-2 2xl:pl-3 mr-1 relative"></span>
+          <span className="bg-[#e39858] py-5 2xl:py-6 pl-1 2xl:pl-2 mr-1 relative"></span>
+          <span className="text-white text-2xl border-text mt-2 relative ml-3 2xl:ml-4">
+            error_msg.exe
+          </span>
+        </div>
+      </div>
+      <div className="bg-[#cfd3db] px-4 pt-6 clip-path-notched-bt-xlg">
+        <div className="py-8 px-10 clip-path-notched-xlg flex items-center flex-col justify-center bg-[#adb9cf]">
+          <img className="w-60" src={computer} alt="" />
+          <span className="mt-2 text-white text-lg text-center bold-text">
+            A:\Please use your computer to access this page
+          </span>
+        </div>
+
+        <div className="flex justify-center items-center relative pt-2 overlap">
+          <div className="z-10 bg-[#cfd3db] py-2 px-8 clip-path-notched-tp-xlg w-fit">
+            <div className="bg-[#363636] px-0-5 2xl:px-1-5 pt-1-5 pb-3 2xl:pb-4 clip-path-notched-sm">
+              <button
+                className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+   before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+              >
+                <span className="relative text-white text-2xl uppercase light-text">
+                  Error
+                </span>
+              </button>
+            </div>
+          </div>
+          <span className="absolute bottom-0 w-3/4 border-solid border-8 border-[#aeafba] z-0"></span>
+          <span className="absolute bottom-6 w-3/4 border-solid border-6 border-[#aeafba] z-0"></span>
+        </div>
+      </div>
+    </section>
   );
 }
 

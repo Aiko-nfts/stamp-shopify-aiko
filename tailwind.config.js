@@ -5,9 +5,7 @@ module.exports = {
   theme: {
     screens: {
       sm: '500px',
-      md: {
-        raw: '(min-width: 600px) and (max-width: 767px), (min-width: 868px)',
-      },
+      md: '780px',
       lg: '1024px',
       xl: '1280px',
       '2xl': {

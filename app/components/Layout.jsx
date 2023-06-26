@@ -88,6 +88,24 @@ export function Layout({children, title}) {
   const dispatch = useDispatch();
   const cart = root.data?.cart;
 
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0,
+  );
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  console.log(windowWidth);
+
   const cartCheck = new Promise((resolve, reject) => {
     resolve(root.data?.cart);
   });
@@ -101,7 +119,7 @@ export function Layout({children, title}) {
       console.error(error);
     });
 
-  return (
+  return windowWidth > 1024 ? (
     <div className="flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
       <img
         className="opacity-30 absolute w-full h-full animate-slide scale-150"
@@ -130,6 +148,31 @@ export function Layout({children, title}) {
           </span>
         </div>
       </div>
+      <main
+        role="main"
+        id="mainContent"
+        className="flex justify-center items-center"
+      >
+        {children}
+      </main>
+
+      <Drawer showCoupon={showCoupon} open={isOpen} onClose={closeDrawer}>
+        <CartDrawer cart={cart} close={closeDrawer} />
+      </Drawer>
+    </div>
+  ) : (
+    <div className="flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
+      <img
+        className="opacity-30 absolute w-full h-full animate-slide scale-150"
+        src={stars}
+        alt=""
+      />
+
+      <div className="before:opacity-90 before:rotate-200 before:translate-x-20 before:absolute before:block before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-l before:from-white via-transparent"></div>
+
+      <span className="absolute bottom-0 text-xl flex justify-center items-center py-3 2xl:py-6">
+        <img className="h-8 w-8" src={aiko} alt="" />
+      </span>
       <main
         role="main"
         id="mainContent"
