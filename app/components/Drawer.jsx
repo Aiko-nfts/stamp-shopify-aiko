@@ -1,6 +1,6 @@
 import {Dialog, Transition} from '@headlessui/react';
 import React, {Fragment, useState, useRef, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useLocation} from '@remix-run/react';
 import message from '../images/messageboxicon.svg';
 import gift from '../images/gifticon.svg';
@@ -97,7 +97,7 @@ function Drawer({open, onClose, children}) {
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className=" z-10" onClose={handleClose}>
+      <Dialog as="div" className="z-50" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

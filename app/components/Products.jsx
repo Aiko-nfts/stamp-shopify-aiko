@@ -23,17 +23,13 @@ const Products = ({products}) => {
   const [allocatedRewards, setAllocatedRewards] = useState(0);
   const [root] = useMatches();
   const [inCart, setInCart] = useState(['']);
-
   const fetcher = useFetcher();
   const selectedLocale = root?.data?.selectedLocale;
-
   const [selectedVariant, setSelectedVariant] = useState(null);
-
   const lines = [{merchandiseId: selectedVariant, quantity: 1}];
-
   const rewardsInCart = useSelector((state) => state.reward.activeReward);
-
-  // rewardsInCart = rewardsInCart?.map((object) => object.merchandise.product.id);
+  const productIds = ['47081029632291', '47081033957667', '47081035890979'];
+  const [availability, setAvailability] = useState([]);
 
   console.log(rewardsInCart?.map((object) => object.merchandise.product.id));
 
@@ -89,6 +85,19 @@ const Products = ({products}) => {
   }
 
   useEffect(() => {
+    let counter = 0;
+
+    products.edges.slice(0, allocatedRewards).forEach(({node: product}) => {
+      if (product.variants.edges[0].node.availableForSale) {
+        counter++;
+      }
+    });
+
+    setAvailability(counter);
+    dispatch(setRedeemableAmount(counter));
+  }, [products, allocatedRewards]);
+
+  useEffect(() => {
     try {
       const object = decrypt(encryptedObject, key);
       if (isValidDecryptedObject(object)) {
@@ -109,103 +118,12 @@ const Products = ({products}) => {
     }
   }, [encryptedObject]);
 
-  // const handleAddToCart = async (e) => {
-  //   const variants = e.variants.edges;
-
-  //   let variant = variants[0].node.id;
-  //   setSelectedVariant(variant);
-  //   onProductClick(product);
-
-  //   if (selectedVariant) {
-  //     console.log(selectedVariant);
-  //     return <AddToCartButton variantId={selectedVariant} />;
-  //   }
-  // };
-
   return (
     <ul className="flex gap-6 items-center justify-center">
       {[...products.edges.slice(0, allocatedRewards)].map(
         ({node: product}, i) => (
           <>
-            {!inCart.includes(product.id) && (
-              <fetcher.Form action="/cart" method="post" key={product.id}>
-                <>
-                  <input
-                    type="hidden"
-                    name="cartAction"
-                    value={'ADD_TO_CART'}
-                  />
-                  <input
-                    type="hidden"
-                    name="countryCode"
-                    value={selectedLocale?.country ?? 'US'}
-                  />
-                  <input
-                    type="hidden"
-                    name="lines"
-                    value={JSON.stringify(lines)}
-                  />
-                  <button
-                    key={product.id}
-                    onClick={() => handleAddToCart(product)}
-                    className={`text-center transition-all ease-in-out ${
-                      hovered === product.id ? 'translate-y-2' : ''
-                    }`}
-                  >
-                    {product.images.edges.length > 0 && (
-                      <div
-                        className={`ease-in clip-path-notched-lrg w-43 h-54 2xl:w-54 2xl:h-70 pt-1 pb-3 flex justify-center items-center transition-all duraction-200 bg-[#363636]`}
-                      >
-                        <div
-                          className={`ease-in clip-path-notched-lrg w-39 h-52 2xl:w-50 2xl:h-62 flex justify-center items-center transition-all duraction-200 ${
-                            inCart.includes(product.id)
-                              ? 'bg-[#ffe9a7]'
-                              : hovered === product.id
-                              ? 'bg-[#ffe9a7]'
-                              : 'bg-[#85aae4]'
-                          }`}
-                        >
-                          <div
-                            onMouseEnter={() => setHovered(product.id)}
-                            onMouseLeave={() => setHovered(null)}
-                            className={`ease-in clip-path-notched-lrg w-36 h-50 2xl:w-48 2xl:h-60 relative transition-all bg-gradient-to-b duraction-200 ${
-                              inCart.includes(product.id)
-                                ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
-                                : hovered === product.id
-                                ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
-                                : 'from-[#85aae4] via-[#85aae4] to-[#adb9cf]'
-                            } 
-                    
-                    `}
-                          >
-                            <img
-                              src={product.images.edges[0].node.transformedSrc}
-                              alt={product.title}
-                              className="absolute top-0 left-0 w-full h-full object-cover font-thin"
-                            />
-                            <div
-                              className={`ease-in overlay absolute top-0 left-0 w-full h-full transition-all	 bg-gradient-to-b from-transparent via-transparent duraction-200
-                    ${
-                      inCart.includes(product.id)
-                        ? 'to-[#6c4d25]'
-                        : hovered === product.id
-                        ? 'to-[#6c4d25]'
-                        : 'to-[#3f5989]'
-                    }`}
-                            ></div>
-                            <span className="bottom-0 absolute w-full flex justify-center tracking-tighter items-center text-white text-md 2xl:text-xl pb-3 2xl:pb-6">
-                              {product.title}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </button>
-                </>
-              </fetcher.Form>
-            )}
-
-            {inCart.includes(product.id) && (
+            {!product.variants.edges[0].node.availableForSale && (
               <button
                 key={product.id}
                 className={`text-center transition-all ease-in-out ${
@@ -217,44 +135,23 @@ const Products = ({products}) => {
                     className={`ease-in clip-path-notched-lrg w-43 h-54 2xl:w-54 2xl:h-70 pt-1 pb-3 flex justify-center items-center transition-all duraction-200 bg-[#363636]`}
                   >
                     <div
-                      className={`ease-in clip-path-notched-lrg w-39 h-52 2xl:w-50 2xl:h-62 flex justify-center items-center transition-all duraction-200 ${
-                        inCart.includes(product.id)
-                          ? 'bg-[#ffe9a7]'
-                          : hovered === product.id
-                          ? 'bg-[#ffe9a7]'
-                          : 'bg-[#85aae4]'
-                      }`}
+                      className={`ease-in clip-path-notched-lrg w-39 h-52 2xl:w-50 2xl:h-62 flex justify-center items-center transition-all duraction-200 bg-[#c9c9c9]`}
                     >
                       <div
                         onMouseEnter={() => setHovered(product.id)}
                         onMouseLeave={() => setHovered(null)}
-                        className={`ease-in clip-path-notched-lrg w-36 h-50 2xl:w-48 2xl:h-60 relative transition-all bg-gradient-to-b duraction-200 ${
-                          inCart.includes(product.id)
-                            ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
-                            : hovered === product.id
-                            ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
-                            : 'from-[#85aae4] via-[#85aae4] to-[#adb9cf]'
-                        } 
-                    
-                    `}
+                        className={`ease-in clip-path-notched-lrg w-36 h-50 2xl:w-48 2xl:h-60 relative transition-all bg-gradient-to-t duraction-200 from-[#141414] via-[#989898] to-[#e2e2e2]`}
                       >
                         <img
                           src={product.images.edges[0].node.transformedSrc}
                           alt={product.title}
-                          className="absolute top-0 left-0 w-full h-full object-cover font-thin"
+                          className="absolute top-0 left-0 w-full h-full object-cover font-thin grayscale"
                         />
                         <div
-                          className={`ease-in overlay absolute top-0 left-0 w-full h-full transition-all	 bg-gradient-to-b from-transparent via-transparent duraction-200
-                    ${
-                      inCart.includes(product.id)
-                        ? 'to-[#6c4d25]'
-                        : hovered === product.id
-                        ? 'to-[#6c4d25]'
-                        : 'to-[#3f5989]'
-                    }`}
+                          className={`ease-in overlay absolute top-0 left-0 w-full h-full transition-all	 bg-gradient-to-b from-transparent via-transparent duraction-200 to-[#151515]`}
                         ></div>
-                        <span className="bottom-0 absolute w-full flex justify-center tracking-tighter items-center text-white text-md 2xl:text-xl pb-3 2xl:pb-6">
-                          {product.title}
+                        <span className="bottom-0 absolute w-full flex justify-center tracking-tighter items-center text-red text-md 2xl:text-xl pb-3 2xl:pb-6">
+                          OUT OF STOCK
                         </span>
                       </div>
                     </div>
@@ -262,6 +159,146 @@ const Products = ({products}) => {
                 )}
               </button>
             )}
+
+            {!inCart.includes(product.id) &&
+              product.variants.edges[0].node.availableForSale && (
+                <fetcher.Form action="/cart" method="post" key={product.id}>
+                  <>
+                    <input
+                      type="hidden"
+                      name="cartAction"
+                      value={'ADD_TO_CART'}
+                    />
+                    <input
+                      type="hidden"
+                      name="countryCode"
+                      value={selectedLocale?.country ?? 'US'}
+                    />
+                    <input
+                      type="hidden"
+                      name="lines"
+                      value={JSON.stringify(lines)}
+                    />
+                    <button
+                      key={product.id}
+                      onClick={() => handleAddToCart(product)}
+                      className={`text-center transition-all ease-in-out ${
+                        hovered === product.id ? 'translate-y-2' : ''
+                      }`}
+                    >
+                      {product.images.edges.length > 0 && (
+                        <div
+                          className={`ease-in clip-path-notched-lrg w-43 h-54 2xl:w-54 2xl:h-70 pt-1 pb-3 flex justify-center items-center transition-all duraction-200 bg-[#363636]`}
+                        >
+                          <div
+                            className={`ease-in clip-path-notched-lrg w-39 h-52 2xl:w-50 2xl:h-62 flex justify-center items-center transition-all duraction-200 ${
+                              inCart.includes(product.id)
+                                ? 'bg-[#ffe9a7]'
+                                : hovered === product.id
+                                ? 'bg-[#ffe9a7]'
+                                : 'bg-[#85aae4]'
+                            }`}
+                          >
+                            <div
+                              onMouseEnter={() => setHovered(product.id)}
+                              onMouseLeave={() => setHovered(null)}
+                              className={`ease-in clip-path-notched-lrg w-36 h-50 2xl:w-48 2xl:h-60 relative transition-all bg-gradient-to-b duraction-200 ${
+                                inCart.includes(product.id)
+                                  ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
+                                  : hovered === product.id
+                                  ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
+                                  : 'from-[#85aae4] via-[#85aae4] to-[#adb9cf]'
+                              } 
+                    
+                    `}
+                            >
+                              <img
+                                src={
+                                  product.images.edges[0].node.transformedSrc
+                                }
+                                alt={product.title}
+                                className="absolute top-0 left-0 w-full h-full object-cover font-thin"
+                              />
+                              <div
+                                className={`ease-in overlay absolute top-0 left-0 w-full h-full transition-all	 bg-gradient-to-b from-transparent via-transparent duraction-200
+                    ${
+                      inCart.includes(product.id)
+                        ? 'to-[#6c4d25]'
+                        : hovered === product.id
+                        ? 'to-[#6c4d25]'
+                        : 'to-[#3f5989]'
+                    }`}
+                              ></div>
+                              <span className="bottom-0 absolute w-full flex justify-center tracking-tighter items-center text-white text-md 2xl:text-xl pb-3 2xl:pb-6">
+                                {product.title}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  </>
+                </fetcher.Form>
+              )}
+
+            {inCart.includes(product.id) &&
+              product.variants.edges[0].node.availableForSale && (
+                <button
+                  key={product.id}
+                  className={`text-center transition-all ease-in-out ${
+                    hovered === product.id ? 'translate-y-2' : ''
+                  }`}
+                >
+                  {product.images.edges.length > 0 && (
+                    <div
+                      className={`ease-in clip-path-notched-lrg w-43 h-54 2xl:w-54 2xl:h-70 pt-1 pb-3 flex justify-center items-center transition-all duraction-200 bg-[#363636]`}
+                    >
+                      <div
+                        className={`ease-in clip-path-notched-lrg w-39 h-52 2xl:w-50 2xl:h-62 flex justify-center items-center transition-all duraction-200 ${
+                          inCart.includes(product.id)
+                            ? 'bg-[#ffe9a7]'
+                            : hovered === product.id
+                            ? 'bg-[#ffe9a7]'
+                            : 'bg-[#85aae4]'
+                        }`}
+                      >
+                        <div
+                          onMouseEnter={() => setHovered(product.id)}
+                          onMouseLeave={() => setHovered(null)}
+                          className={`ease-in clip-path-notched-lrg w-36 h-50 2xl:w-48 2xl:h-60 relative transition-all bg-gradient-to-b duraction-200 ${
+                            inCart.includes(product.id)
+                              ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
+                              : hovered === product.id
+                              ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
+                              : 'from-[#85aae4] via-[#85aae4] to-[#adb9cf]'
+                          } 
+                    
+                    `}
+                        >
+                          <img
+                            src={product.images.edges[0].node.transformedSrc}
+                            alt={product.title}
+                            className="absolute top-0 left-0 w-full h-full object-cover font-thin"
+                          />
+                          <div
+                            className={`ease-in overlay absolute top-0 left-0 w-full h-full transition-all	 bg-gradient-to-b from-transparent via-transparent duraction-200
+                    ${
+                      inCart.includes(product.id)
+                        ? 'to-[#6c4d25]'
+                        : hovered === product.id
+                        ? 'to-[#6c4d25]'
+                        : 'to-[#3f5989]'
+                    }`}
+                          ></div>
+                          <span className="bottom-0 absolute w-full flex justify-center tracking-tighter items-center text-white text-md 2xl:text-xl pb-3 2xl:pb-6">
+                            {product.title}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </button>
+              )}
           </>
         ),
       )}
