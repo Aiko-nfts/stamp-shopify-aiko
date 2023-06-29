@@ -152,6 +152,12 @@ export default function Index() {
     },
   ];
 
+  const [isHovered, setIsHovered] = useState(
+    new Array(socials.length).fill(false),
+  );
+
+  console.log(isHovered);
+
   return windowWidth > 1024 ? (
     <div className="relative">
       <Drawer open={isOpen} onClose={closeDrawer}>
@@ -169,12 +175,30 @@ export default function Index() {
         <div className="absolute right-3 flex top-60 z-[0]">
           <div className="relative bg-[#363636] pt-1 pr-1 pb-1 clip-path-notched-r-xlg">
             <div className="bg-[#afbdc5] pl-3 pr-4 py-2 clip-path-notched-r-xlg ">
-              {socials.map((social) => (
+              {socials.map((social, index) => (
                 <div
                   key={social.link}
                   className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
+                  onMouseEnter={() =>
+                    setIsHovered((prevHoverState) => {
+                      const newHoverState = [...prevHoverState];
+                      newHoverState[index] = true;
+                      return newHoverState;
+                    })
+                  }
+                  onMouseLeave={() =>
+                    setIsHovered((prevHoverState) => {
+                      const newHoverState = [...prevHoverState];
+                      newHoverState[index] = false;
+                      return newHoverState;
+                    })
+                  }
                 >
-                  <div className="bg-[#afbdc5] py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center">
+                  <div
+                    className={` ${
+                      isHovered[index] ? 'bg-[#619ee2]' : 'bg-[#afbdc5]'
+                    } transition-all py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center`}
+                  >
                     <a href={social.link}>
                       <img className="white w-full" src={social.icon} alt="" />
                     </a>
@@ -188,12 +212,30 @@ export default function Index() {
           <div className="absolute right-3 flex top-60 z-[0]">
             <div className="relative bg-[#363636] pt-1 pr-1 pb-1 clip-path-notched-r-xlg">
               <div className="bg-[#afbdc5] pl-3 pr-4 py-2 clip-path-notched-r-xlg ">
-                {socials.map((social) => (
+                {socials.map((social, index) => (
                   <div
                     key={social.link}
                     className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
+                    onMouseEnter={() =>
+                      setIsHovered((prevHoverState) => {
+                        const newHoverState = [...prevHoverState];
+                        newHoverState[index] = true;
+                        return newHoverState;
+                      })
+                    }
+                    onMouseLeave={() =>
+                      setIsHovered((prevHoverState) => {
+                        const newHoverState = [...prevHoverState];
+                        newHoverState[index] = false;
+                        return newHoverState;
+                      })
+                    }
                   >
-                    <div className="bg-[#afbdc5] py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center">
+                    <div
+                      className={` ${
+                        isHovered[index] ? 'bg-[#619ee2]' : 'bg-[#afbdc5]'
+                      } transition-all py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center`}
+                    >
                       <a href={social.link}>
                         <img
                           className="white w-full"
@@ -337,7 +379,7 @@ export default function Index() {
                             key={social.link}
                             className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
                           >
-                            <div className="bg-[#afbdc5] py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center">
+                            <div className="bg-[#afbdc5] group-hover:bg-[#619ee2] py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center">
                               <a href={social.link}>
                                 <img
                                   className="white w-full"

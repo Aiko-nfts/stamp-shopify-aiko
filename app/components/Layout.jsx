@@ -120,6 +120,8 @@ export function Layout({children, title}) {
 
   return windowWidth > 1024 ? (
     <div className="flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
+      <CartHeader cart={cart} openDrawer={openDrawer} />
+
       <img
         className="absolute z-[-20] opacity-30 w-full h-full animate-slide scale-150"
         src={stars}
@@ -134,7 +136,6 @@ export function Layout({children, title}) {
         <p className="text-[#84858c] tracking-tighter ml-2 text-lg">
           Powered By Aiko Virtual
         </p>
-        <CartHeader cart={cart} openDrawer={openDrawer} />
       </span> */}
       {/* </div>
       </div> */}

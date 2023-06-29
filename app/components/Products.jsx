@@ -30,6 +30,8 @@ const Products = ({products}) => {
   const rewardsInCart = useSelector((state) => state.reward.activeReward);
   const productIds = ['47081029632291', '47081033957667', '47081035890979'];
   const [availability, setAvailability] = useState([]);
+  const [clicked, setClicked] = useState([0, 0, 0]);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   console.log(rewardsInCart?.map((object) => object.merchandise.product.id));
 
@@ -39,6 +41,9 @@ const Products = ({products}) => {
   }, [rewardsInCart]);
 
   const handleAddToCart = (product) => {
+    setIsButtonDisabled(true);
+    // set the index of clicked to 1
+    // else return <AddToCartButton variantId={selectedVariant} />;
     const cartProduct = product.id;
     const variants = product.variants.edges;
     const variant = variants[0].node.id;
@@ -51,8 +56,14 @@ const Products = ({products}) => {
     if (variant) {
       if (inCart.includes(cartProduct)) {
         console.log('already in cart');
+        setClicked(clicked.map((value, index) => (index === i ? 1 : value)));
+
         return;
       }
+
+      setTimeout(() => {
+        setIsButtonDisabled(false); // Re-enable the button after 1 second
+      }, 1000);
       // else return <AddToCartButton variantId={selectedVariant} />;
     }
   };
@@ -161,7 +172,8 @@ const Products = ({products}) => {
             )}
 
             {!inCart.includes(product.id) &&
-              product.variants.edges[0].node.availableForSale && (
+              product.variants.edges[0].node.availableForSale &&
+              clicked[i] != 1 && (
                 <fetcher.Form action="/cart" method="post" key={product.id}>
                   <>
                     <input
