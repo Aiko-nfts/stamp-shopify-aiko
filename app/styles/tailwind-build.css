@@ -1369,6 +1369,18 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(97 158 226 / var(--tw-bg-opacity));
 }
+.bg-\[\#bfa1a1\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(191 161 161 / var(--tw-bg-opacity));
+}
+.bg-\[\#ff2626\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 38 38 / var(--tw-bg-opacity));
+}
+.bg-\[\#6f1919\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(111 25 25 / var(--tw-bg-opacity));
+}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -1773,6 +1785,20 @@ video {
 
       /* bottom left */ 0 calc(100%) /* bottom left */
     );
+  }
+
+.before\:clip-path-notched-bt-xlg::before {
+    content: var(--tw-content);
+    -webkit-clip-path: polygon(
+      0% 0px,/* top left */ 
+      0px 0%,/* top left */
+      calc(100% - 0px) 0%,/* top right */ 
+      100% 0px,/* top right */ 
+      100% calc(100% - 24px),/* bottom right */ 
+      calc(100% - 24px) 100%,/* bottom right */ 
+      24px 100%,/* bottom left */ 
+      0 calc(100% - 24px) /* bottom left */
+  );
   }
 
 .after\:yellow-stripe::after {

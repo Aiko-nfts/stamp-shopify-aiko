@@ -56,7 +56,7 @@ const Products = ({products}) => {
       }
       setTimeout(() => {
         setIsButtonDisabled(false); // Re-enable the button after 1 second
-      }, 500);
+      }, 700);
     }
   };
 
@@ -130,7 +130,7 @@ const Products = ({products}) => {
               <button
                 key={product.id}
                 className={`text-center transition-all ease-in-out ${
-                  hovered === product.id ? 'translate-y-2' : ''
+                  hovered === product.id ? '' : ''
                 }`}
               >
                 {product.images.edges.length > 0 && (
@@ -255,7 +255,7 @@ const Products = ({products}) => {
                 <button
                   key={product.id}
                   className={`text-center transition-all ease-in-out ${
-                    hovered === product.id ? 'translate-y-2' : ''
+                    hovered === product.id ? '' : ''
                   }`}
                 >
                   {product.images.edges.length > 0 && (

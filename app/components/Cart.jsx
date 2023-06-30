@@ -45,30 +45,57 @@ function LineItem({lineItem}) {
 
   return (
     <div className="p-2">
-      <div className="flex bg-[#d9e2ee] items-center  clip-path-notched-xlg">
-        <div className="bg-[#a1acbf] p-1 clip-path-notched-xlg ">
-          <div className="pt-4 px-4 clip-path-notched-xlg bg-[#ccd2e1] flex justify-center items-center ">
-            <Image
-              className="relative bottom-0"
-              data={merchandise.image}
-              width={125}
-              height={125}
-            />
+      {quantity > 1 ? (
+        <div className="flex bg-[#d9e2ee] items-center  clip-path-notched-xlg">
+          <div className="bg-[#6f1919] p-1 clip-path-notched-xlg ">
+            <div className="pt-4 px-4 clip-path-notched-xlg bg-[#ff2626] flex justify-center items-center ">
+              <Image
+                className="relative bottom-0"
+                data={merchandise.image}
+                width={125}
+                height={125}
+              />
+            </div>
           </div>
+          <div className="bg-[#6f1919] py-12 px-12 w-fit clip-path-notched-r-xlg h-fit flex-1 items-center text-white text-2xl my-2">
+            PLEASE RE-ADD TO CART
+            <div className="ml-2">
+              {/* {Object.entries(lineAttributes).map(([key, value]) => (
+                <div
+                  key={key}
+                  className="text-pDetailsUnselectedBlue text-md leading-tight"
+                ></div>
+              ))} */}
+            </div>
+          </div>
+          <ItemRemoveButton lineIds={[lineItem.id]} />
         </div>
-        <div className="bg-[#a1acbf] py-12 px-12 w-fit clip-path-notched-r-xlg h-fit flex-1 items-center text-white text-2xl my-2">
-          {merchandise.product.title}
-          <div className="ml-2">
-            {/* {Object.entries(lineAttributes).map(([key, value]) => (
+      ) : (
+        <div className="flex bg-[#d9e2ee] items-center  clip-path-notched-xlg">
+          <div className="bg-[#a1acbf] p-1 clip-path-notched-xlg ">
+            <div className="pt-4 px-4 clip-path-notched-xlg bg-[#ccd2e1] flex justify-center items-center ">
+              <Image
+                className="relative bottom-0"
+                data={merchandise.image}
+                width={125}
+                height={125}
+              />
+            </div>
+          </div>
+          <div className="bg-[#a1acbf] py-12 px-12 w-fit clip-path-notched-r-xlg h-fit flex-1 items-center text-white text-2xl my-2">
+            {merchandise.product.title}
+            <div className="ml-2">
+              {/* {Object.entries(lineAttributes).map(([key, value]) => (
               <div
                 key={key}
                 className="text-pDetailsUnselectedBlue text-md leading-tight"
               ></div>
             ))} */}
+            </div>
           </div>
+          {/* <ItemRemoveButton lineIds={[lineItem.id]} /> */}
         </div>
-        <ItemRemoveButton lineIds={[lineItem.id]} />
-      </div>
+      )}
     </div>
   );
 }
@@ -163,8 +190,9 @@ export function CartSummary({cost}) {
     </>
   );
 }
-export function CartActions({checkoutUrl}) {
+export function CartActions({checkoutUrl, cartQuantity}) {
   const showCoupon = useSelector((state) => state.coupon.showCoupon);
+  const redeemable = useSelector((state) => state.redeemable.redeemableAmount);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -202,24 +230,46 @@ export function CartActions({checkoutUrl}) {
 
   return (
     <div>
-      {/* {showCoupon && (
-        <div className="bg-[#6291db] w-1/2 h-1/2 text-4xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          <p>Your coupon code is: CODE123</p>
-          <p>Redirecting in {timer} seconds...</p>
+      {cartQuantity > redeemable ? (
+        <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
+          <div
+            className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
+before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+          >
+            <button>
+              <span className="uppercase relative text-white text-3xl light-text">
+                {`Re-add Item(s)`}
+              </span>
+            </button>
+          </div>
         </div>
-      )} */}
-      <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
-        <div
-          className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
-    before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
-        >
-          <button onClick={() => handleClick()}>
-            <span className="uppercase relative text-white text-3xl light-text">
-              Continue to Checkout
-            </span>
-          </button>
+      ) : cartQuantity < redeemable ? (
+        <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
+          <div
+            className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
+before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+          >
+            <button>
+              <span className="uppercase relative text-white text-3xl light-text">
+                Please Re-add Items
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="bg-[#363636] p-0-5 clip-path-notched-sm pb-2">
+          <div
+            className="flex clip-path-notched-sm p-2 flex-1 text-center justify-center before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] clip-path-notched-sm
+before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
+          >
+            <button onClick={() => handleClick()}>
+              <span className="uppercase relative text-white text-3xl light-text">
+                Continue to Checkout
+              </span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

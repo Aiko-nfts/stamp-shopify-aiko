@@ -75,7 +75,10 @@ function CartDrawer({cart, close}) {
                 </div>
                 <div className="w-full md:px-12 px-4 py-6 space-y-6">
                   <CartSummary cost={data.cost} />
-                  <CartActions checkoutUrl={data.checkoutUrl} />
+                  <CartActions
+                    checkoutUrl={data.checkoutUrl}
+                    cartQuantity={data.totalQuantity}
+                  />
                 </div>
               </>
             ) : (
@@ -156,7 +159,7 @@ export default function Index() {
     new Array(socials.length).fill(false),
   );
 
-  console.log(isHovered);
+  console.log(cart);
 
   return windowWidth > 1024 ? (
     <div className="relative">
@@ -281,7 +284,7 @@ export default function Index() {
                         )}
                       </div>
                     </div>
-                    <div className="bg-[#cfd3db] px-4 pt-6 clip-path-notched-bt-xlg">
+                    <div className="bg-[#cfd3db] px-4 pt-6 clip-path-notched-bt-xlg before:clip-path-notched-bt-xlg">
                       <div className="py-8 px-10 clip-path-notched-xlg flex items-center flex-col justify-center bg-[#adb9cf]">
                         <Products products={products} />
                         {couponError ? (
@@ -332,8 +335,7 @@ export default function Index() {
                               <Await resolve={cart}>
                                 {(data) => (
                                   <>
-                                    {data?.totalQuantity ===
-                                    redeemableAmount ? (
+                                    {data?.totalQuantity >= redeemableAmount ? (
                                       <>
                                         <button
                                           onClick={() => openDrawerClick()}
