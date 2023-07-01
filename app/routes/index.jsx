@@ -105,9 +105,7 @@ export default function Index() {
   const redeemableAmount = useSelector(
     (state) => state.redeemable.redeemableAmount,
   );
-  console.log(redeemableAmount);
   const {products} = useLoaderData();
-  console.log(products);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const redeemable = products?.edges.length;
   const {isOpen, openDrawer, closeDrawer} = useDrawer();
@@ -130,11 +128,7 @@ export default function Index() {
     }
   }, []);
 
-  console.log(windowWidth);
-
   const couponError = useSelector((state) => state.error.couponError);
-
-  console.log(couponError);
 
   function openDrawerClick() {
     openDrawer();
@@ -158,8 +152,6 @@ export default function Index() {
   const [isHovered, setIsHovered] = useState(
     new Array(socials.length).fill(false),
   );
-
-  console.log(cart);
 
   return windowWidth > 1024 ? (
     <div className="relative">
@@ -308,7 +300,7 @@ export default function Index() {
                             </span>
                           </div>
                         ) : (
-                          <span className="mt-10 text-white text-2xl 2xl:text-4xl text-center bold-text">
+                          <span className="mt-10 text-white text-2xl 2xl:text-4xl text-center med-bold-text 2xl:bold-text">
                             You have{' '}
                             <span className="text-[#edbc5a] text-2xl 2xl:text-4xl">{`${redeemableAmount} free`}</span>{' '}
                             reward(s) to redeem,
@@ -422,7 +414,7 @@ export default function Index() {
       <div className="bg-[#cfd3db] px-4 pt-6 clip-path-notched-bt-xlg">
         <div className="py-8 px-10 clip-path-notched-xlg flex items-center flex-col justify-center bg-[#adb9cf]">
           <img className="w-60" src={computer} alt="" />
-          <span className="mt-2 text-white text-lg text-center bold-text">
+          <span className="mt-2 text-white text-lg text-center light-bold-text">
             A:\Please use your computer to access this page
           </span>
         </div>

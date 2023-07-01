@@ -18,7 +18,6 @@ function Drawer({open, onClose, children}) {
   const urlParams = new URLSearchParams(location.search);
 
   const encryptedString = urlParams.get('coupon');
-  console.log(encryptedString);
 
   const couponFromState = useSelector((state) => state.code.couponCode);
   const [coupon, setCoupon] = useState(couponFromState || encryptedString);
@@ -27,6 +26,7 @@ function Drawer({open, onClose, children}) {
   const [clickedOnShowCoupon, setClickedOnShowCoupon] = useState(true);
   const [timer, setTimer] = useState(5);
   const [isExiting, setIsExiting] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     setCoupon(couponFromState || encryptedString);
@@ -60,12 +60,13 @@ function Drawer({open, onClose, children}) {
     setTimeout(() => {
       setClickedOnShowCoupon(false);
       setIsExiting(true);
-    }, 900);
+    }, 700);
   };
 
   const handleClose = (e) => {
     if (!clickedOnShowCoupon) {
       onClose();
+      setCopied(false);
     }
   };
 
@@ -73,25 +74,27 @@ function Drawer({open, onClose, children}) {
     if (!clickedOnShowCoupon) {
       setClickedOnShowCoupon(true);
       onClose();
+      setCopied(false);
     }
   }, [clickedOnShowCoupon]);
 
   const handleButtonClick = async () => {
     await copyToClipboard(couponRef.current.value);
     setClickedOnShowCoupon(true);
+    setCopied(true);
   };
 
   const handleInputClick = async () => {
     await copyToClipboard(couponRef.current.value);
     setClickedOnShowCoupon(true);
+    setCopied(true);
   };
 
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log('Text copied to clipboard');
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      return;
     }
   };
 
@@ -112,7 +115,7 @@ function Drawer({open, onClose, children}) {
 
         <div className="fixed inset-0">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="h-fit w-fit top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 flex items-center justify-center absolute">
+            <div className="z-50 h-fit w-fit top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 flex items-center justify-center absolute">
               {showCoupon && (
                 <div
                   className={`${
@@ -168,9 +171,9 @@ function Drawer({open, onClose, children}) {
                           FREE coupon code
                         </p>
 
-                        <div className="px-3 pb-3 m-auto text-center text-[#6f6f6f] text-3xl flex justify-center items-center ">
+                        <div className="px-2 pb-3 m-auto text-center text-[#6f6f6f] text-3xl flex justify-center items-center">
                           <div className="bg-black p-1 clip-path-notched-lrg z-20">
-                            <div className="clip-path-notched-lrg px-6 pb-2 py-4  w-fit m-auto text-center bg-[white] text-[#6f6f6f] text-3xl flex justify-center items-center ">
+                            <div className="clip-path-notched-lrg px-6 pb-2 py-4 m-auto text-center bg-[white] text-[#6f6f6f] text-3xl flex justify-center items-center">
                               <input
                                 className="cursor-pointer"
                                 id="couponCode"
@@ -183,12 +186,14 @@ function Drawer({open, onClose, children}) {
                             </div>
                           </div>
 
-                          <div className="clip-path-notched-r -ml-3 z-10">
+                          <div className="clip-path-notched-r -ml-3 z-10 transition-all duration-500 ease-in-out">
                             <button
                               onClick={handleButtonClick}
-                              className="bg-[#5877ab] text-center text-white px-4 pb-1 py-4 clip-path-notched-r-lrg"
+                              className={`transition-colors duration-300 ease-in-out text-center text-white px-4 pb-1 py-4 clip-path-notched-r-lrg ${
+                                copied ? 'bg-[#e39858]' : 'bg-[#5877ab]'
+                              }`}
                             >
-                              COPY
+                              COPY{' '}
                             </button>
                           </div>
                         </div>

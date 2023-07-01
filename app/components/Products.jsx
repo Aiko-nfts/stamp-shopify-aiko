@@ -33,11 +33,8 @@ const Products = ({products}) => {
   const [clicked, setClicked] = useState([0, 0, 0]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  console.log(rewardsInCart?.map((object) => object.merchandise.product.id));
-
   useEffect(() => {
     setInCart(rewardsInCart?.map((object) => object.merchandise.product.id));
-    console.log(inCart);
   }, [rewardsInCart]);
 
   const handleAddToCart = (product) => {
@@ -106,14 +103,10 @@ const Products = ({products}) => {
       if (isValidDecryptedObject(object)) {
         setDecryptedObject(object);
         setAllocatedRewards(object.rewards);
-        console.log('Decrypted object:', object);
         dispatch(setCouponCode(object.wallet));
         dispatch(setRedeemableAmount(object.rewards));
       } else {
-        console.error(
-          'Decrypted object does not have the expected shape:',
-          object,
-        );
+        return;
       }
     } catch (error) {
       setNoCoupon(true);

@@ -103,8 +103,6 @@ export function Layout({children, title}) {
     }
   }, []);
 
-  console.log(windowWidth);
-
   const cartCheck = new Promise((resolve, reject) => {
     resolve(root.data?.cart);
   });
@@ -115,7 +113,7 @@ export function Layout({children, title}) {
       dispatch(setActiveReward(nodes));
     })
     .catch((error) => {
-      console.error(error);
+      return;
     });
 
   return windowWidth > 1024 ? (
