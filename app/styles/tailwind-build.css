@@ -519,7 +519,8 @@ video {
   background-image: url('https://cdn.discordapp.com/attachments/944464297738764298/1124846340350947418/newstars.png');
   background-size: 200% 301%;
   animation: moving-background 15s linear infinite;
-  z-index: -1;
+  z-index: 0;
+
 }
 .body-bg:after {
   content: "";
