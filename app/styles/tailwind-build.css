@@ -510,6 +510,28 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+@keyframes moving-background {
+    0% {background-position: 100% 0%;}
+    100% {background-position: 0% 100%;}
+}
+.body-bg {
+  position: relative;
+  background-image: url('https://cdn.discordapp.com/attachments/944464297738764298/1124846340350947418/newstars.png');
+  background-size: 200% 300%;
+  animation: moving-background 15s linear infinite;
+  z-index: -1;
+}
+.body-bg:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  pointer-events: none;
+  z-index: -1;
+}
 .white {
     filter: brightness(100) contrast(100) saturate(0);
   }
@@ -1036,9 +1058,9 @@ video {
   --tw-translate-y: 0.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
-.scale-150 {
-  --tw-scale-x: 1.5;
-  --tw-scale-y: 1.5;
+.scale-100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .transform {
@@ -1145,11 +1167,11 @@ video {
 @keyframes slide {
 
   0% {
-    transform: translate(35.5%, -35.5%)  scale(2);
+    transform: translate(50%, -50%)  scale(2);
   }
 
   100% {
-    transform: translate(-48%, 48%)  scale(2);
+    transform: translate(-50%, 50%)  scale(2);
   }
 }
 .animate-slide {

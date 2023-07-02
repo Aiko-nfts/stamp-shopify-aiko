@@ -33,8 +33,8 @@ module.exports = {
       },
       keyframes: {
         slide: {
-          '0%': {transform: 'translate(35.5%, -35.5%)  scale(2)'},
-          '100%': {transform: 'translate(-48%, 48%)  scale(2)'},
+          '0%': {transform: 'translate(50%, -50%)  scale(2)'},
+          '100%': {transform: 'translate(-50%, 50%)  scale(2)'},
         },
         slideRight: {
           '0%': {opacity: '0%'},

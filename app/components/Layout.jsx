@@ -117,14 +117,14 @@ export function Layout({children, title}) {
     });
 
   return windowWidth > 1024 ? (
-    <div className="flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
+    <div className="body-bg flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
       {/* <CartHeader cart={cart} openDrawer={openDrawer} /> */}
 
-      <img
-        className="absolute z-[-20] opacity-30 w-full h-full animate-slide scale-150"
+      {/* <img
+        className="absolute z-[-20] opacity-30 w-full h-full animate-slide scale-100"
         src={stars}
         alt=""
-      />
+      /> */}
 
       <div className="relative z-[-1] before:opacity-90 before:rotate-200 before:translate-x-20 before:absolute before:block before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-l before:from-white via-transparent"></div>
       {/* <div className=" bg-[#84858c] clip-path-notched-xlg absolute w-[94vh] h-5/6 xl:w-8/12 xl:h-9/10 p-1 3xl:w-3/4 3xl:h-4/5 4xl:w-8/12 5xl:w-2/4 5xl:h-3/5"> */}
@@ -151,11 +151,11 @@ export function Layout({children, title}) {
     </div>
   ) : (
     <div className="flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
-      <img
-        className="opacity-30 absolute w-full h-full animate-slide scale-150"
+      {/* <img
+        className="opacity-30 absolute w-full h-full animate-slide scale-100"
         src={stars}
         alt=""
-      />
+      /> */}
 
       <div className="before:opacity-90 before:rotate-200 before:translate-x-20 before:absolute before:block before:w-full before:top-0 before:right-0 before:bottom-0 before:left-0 before:bg-gradient-to-l before:from-white via-transparent"></div>
 
