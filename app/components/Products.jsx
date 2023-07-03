@@ -122,7 +122,7 @@ const Products = ({products}) => {
             {!product.variants.edges[0].node.availableForSale && (
               <button
                 key={product.id}
-                className={`text-center transition-all ease-in-out ${
+                className={`cursor-pointer text-center transition-all ease-in-out ${
                   hovered === product.id ? '' : ''
                 }`}
               >
@@ -184,7 +184,7 @@ const Products = ({products}) => {
                       key={product.id}
                       disabled={isButtonDisabled}
                       onClick={() => handleAddToCart(product)}
-                      className={`text-center transition-all ease-in-out ${
+                      className={`cursor-pointer text-center transition-all ease-in-out ${
                         hovered === product.id ? 'translate-y-2' : ''
                       }`}
                     >
@@ -247,7 +247,7 @@ const Products = ({products}) => {
               product.variants.edges[0].node.availableForSale && (
                 <button
                   key={product.id}
-                  className={`text-center transition-all ease-in-out ${
+                  className={`cursor-pointer text-center transition-all ease-in-out ${
                     hovered === product.id ? '' : ''
                   }`}
                 >

@@ -114,7 +114,7 @@ function Drawer({open, onClose, children}) {
         </Transition.Child>
 
         <div className="fixed inset-0">
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute cursor-custom inset-0 overflow-hidden">
             <div className="z-50 h-fit w-fit top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 flex items-center justify-center absolute">
               {showCoupon && (
                 <div
@@ -145,7 +145,7 @@ function Drawer({open, onClose, children}) {
                           }`}
                         >
                           <button
-                            className="closeHover clip-path-notched-sm"
+                            className="cursor-pointer closeHover clip-path-notched-sm"
                             onClick={() => handleShowCouponClick()}
                           >
                             x
@@ -189,7 +189,7 @@ function Drawer({open, onClose, children}) {
                           <div className="clip-path-notched-r -ml-3 z-10 transition-all duration-500 ease-in-out">
                             <button
                               onClick={handleButtonClick}
-                              className={`transition-colors duration-300 ease-in-out text-center text-white px-4 pb-1 py-4 clip-path-notched-r-lrg ${
+                              className={`cursor-pointer transition-colors duration-300 ease-in-out text-center text-white px-4 pb-1 py-4 clip-path-notched-r-lrg ${
                                 copied ? 'bg-[#e39858]' : 'bg-[#5877ab]'
                               }`}
                             >
@@ -255,7 +255,7 @@ function Drawer({open, onClose, children}) {
                           </h2>
                           <div className="closeShadow clip-path-notched-sm">
                             <button
-                              className="closeHover clip-path-notched-sm"
+                              className="cursor-pointer closeHover clip-path-notched-sm"
                               onClick={() => handleShowCouponClick()}
                             >
                               x

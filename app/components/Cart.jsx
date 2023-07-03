@@ -237,7 +237,7 @@ export function CartActions({checkoutUrl, cartQuantity}) {
 before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
           >
             <button>
-              <span className="uppercase relative text-white text-3xl light-text">
+              <span className="cursor-pointer uppercase relative text-white text-3xl light-text">
                 {`Re-add Item(s)`}
               </span>
             </button>
@@ -250,7 +250,7 @@ before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:botto
 before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
           >
             <button>
-              <span className="uppercase relative text-white text-3xl light-text">
+              <span className="cursor-pointer uppercase relative text-white text-3xl light-text">
                 Please Re-add Items
               </span>
             </button>
@@ -263,7 +263,7 @@ before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:botto
 before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
           >
             <button onClick={() => handleClick()}>
-              <span className="uppercase relative text-white text-3xl light-text">
+              <span className="cursor-pointer uppercase relative text-white text-3xl light-text">
                 Continue to Checkout
               </span>
             </button>

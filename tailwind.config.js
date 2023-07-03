@@ -22,6 +22,10 @@ module.exports = {
       },
     },
     extend: {
+      cursor: {
+        custom: 'url(app/images/cursornormal.svg), auto',
+        pointer: 'url(app/images/cursorhover.svg), auto',
+      },
       width: {
         '4/5': '80%',
         '9/10': '90%',

@@ -33,7 +33,7 @@ function CartHeader({cart, openDrawer}) {
       <Await resolve={cart}>
         {(data) => (
           <button
-            className="relative ml-auto flex items-center justify-center w-8 h-8"
+            className="cursor-pointer relative ml-auto flex items-center justify-center w-8 h-8"
             onClick={openDrawer}
           >
             <svg
@@ -88,7 +88,7 @@ function CartDrawer({cart, close}) {
                 </h2>
                 <button
                   onClick={close}
-                  className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
+                  className="cursor-pointer inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
                 >
                   Continue shopping
                 </button>
@@ -167,13 +167,13 @@ export default function Index() {
           />
         </div>
 
-        <div className="absolute right-3 flex top-60 z-[0]">
+        <div className="absolute right-3 flex top-60 z-[0] z-[50]">
           <div className="relative bg-[#363636] pt-1 pr-1 pb-1 clip-path-notched-r-xlg">
             <div className="bg-[#afbdc5] pl-3 pr-4 py-2 clip-path-notched-r-xlg ">
               {socials.map((social, index) => (
                 <div
                   key={social.link}
-                  className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
+                  className="cursor-pointer bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
                   onMouseEnter={() =>
                     setIsHovered((prevHoverState) => {
                       const newHoverState = [...prevHoverState];
@@ -195,7 +195,11 @@ export default function Index() {
                     } transition-all py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center`}
                   >
                     <a href={social.link}>
-                      <img className="white w-full" src={social.icon} alt="" />
+                      <img
+                        className="cursor-pointer white w-full"
+                        src={social.icon}
+                        alt=""
+                      />
                     </a>
                   </div>
                 </div>
@@ -210,7 +214,7 @@ export default function Index() {
                 {socials.map((social, index) => (
                   <div
                     key={social.link}
-                    className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
+                    className="cursor-pointer bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
                     onMouseEnter={() =>
                       setIsHovered((prevHoverState) => {
                         const newHoverState = [...prevHoverState];
@@ -233,7 +237,7 @@ export default function Index() {
                     >
                       <a href={social.link}>
                         <img
-                          className="white w-full"
+                          className="cursor-pointer white w-full"
                           src={social.icon}
                           alt=""
                         />
@@ -316,7 +320,7 @@ export default function Index() {
                           <div className="bg-[#363636] px-0-5 2xl:px-1-5 pt-1-5 pb-3 2xl:pb-4 clip-path-notched-sm">
                             {couponError ? (
                               <button
-                                className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+                                className="cursor-pointer before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
    before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
                               >
                                 <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
@@ -331,7 +335,7 @@ export default function Index() {
                                       <>
                                         <button
                                           onClick={() => openDrawerClick()}
-                                          className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] px-6 pt-3 pb-2 clip-path-notched-sm
+                                          className="cursor-pointer before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#ffcf65] via-[#eea462] to-[#de7e5e] px-6 pt-3 pb-2 clip-path-notched-sm
                 before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
                                         >
                                           <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
@@ -342,7 +346,7 @@ export default function Index() {
                                     ) : (
                                       <>
                                         <button
-                                          className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+                                          className="cursor-pointer before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
               before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
                                         >
                                           <span className="relative text-white text-3xl 2xl:text-4xl uppercase light-text">
@@ -371,12 +375,12 @@ export default function Index() {
                         {socials.map((social) => (
                           <div
                             key={social.link}
-                            className="bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
+                            className="cursor-pointer bg-[#363636] p-0-5 pb-3 clip-path-notched-lrg my-2 2xl:my-3"
                           >
                             <div className="bg-[#afbdc5] group-hover:bg-[#619ee2] py-3 2xl:py-4 p-2 2xl:p-3 clip-path-notched-lrg flex items-center justify-center">
                               <a href={social.link}>
                                 <img
-                                  className="white w-full"
+                                  className="cursor-pointer white w-full"
                                   src={social.icon}
                                   alt=""
                                 />
@@ -423,7 +427,7 @@ export default function Index() {
           <div className="z-10 bg-[#cfd3db] py-2 px-8 clip-path-notched-tp-xlg w-fit">
             <div className="bg-[#363636] px-0-5 2xl:px-1-5 pt-1-5 pb-3 2xl:pb-4 clip-path-notched-sm">
               <button
-                className="before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
+                className="cursor-pointer before:opacity-1 hover:before:opacity-0 bg-gradient-to-b before:transition-opacity relative from-[#d3d3d3] via-[#a9a9a9] to-[#a9a9a9] px-6 pt-3 pb-2 clip-path-notched-sm
    before:absolute before:top-0 before:right-0 before:bg-gradient-to-b before:bottom-0 before:left-0 before:from-[#7fceff] before:via-[#6291db] before:to-[#597ed0]"
               >
                 <span className="relative text-white text-2xl uppercase light-text">

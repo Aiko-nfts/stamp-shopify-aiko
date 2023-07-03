@@ -15,7 +15,7 @@ function CartHeader({cart, openDrawer}) {
       <Await resolve={cart}>
         {(data) => (
           <button
-            className="relative ml-auto flex items-center justify-center w-8 h-8"
+            className="cursor-pointer relative ml-auto flex items-center justify-center w-8 h-8"
             onClick={openDrawer}
           >
             <svg
@@ -67,7 +67,7 @@ function CartDrawer({cart, close}) {
                 </h2>
                 <button
                   onClick={close}
-                  className="inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
+                  className="cursor-pointer inline-block rounded-sm font-medium text-center py-3 px-6 max-w-xl leading-none bg-black text-white w-full"
                 >
                   Continue shopping
                 </button>
@@ -117,7 +117,7 @@ export function Layout({children, title}) {
     });
 
   return windowWidth > 1024 ? (
-    <div className="body-bg flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
+    <div className="cursor-custom body-bg flex flex-col justify-center items-center min-h-screen antialiased overflow-hidden relative">
       {/* <CartHeader cart={cart} openDrawer={openDrawer} /> */}
 
       {/* <img
