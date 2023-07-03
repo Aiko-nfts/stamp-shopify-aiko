@@ -305,8 +305,8 @@ export default function Index() {
                             <span className="text-[#edbc5a] text-2xl 2xl:text-4xl">{`${redeemableAmount} free`}</span>{' '}
                             reward(s) to redeem,
                             <br />
-                            Click on proceed to go to checkout and shipping
-                            details!
+                            Click each item then proceed to checkout and
+                            shipping!
                           </span>
                         )}
                       </div>
