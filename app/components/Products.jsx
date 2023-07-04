@@ -197,7 +197,7 @@ const Products = ({products}) => {
                               inCart.includes(product.id)
                                 ? 'bg-[#ffe9a7]'
                                 : hovered === product.id
-                                ? 'bg-[#ffe9a7]'
+                                ? 'bg-[#fff]'
                                 : 'bg-[#85aae4]'
                             }`}
                           >
@@ -208,7 +208,7 @@ const Products = ({products}) => {
                                 inCart.includes(product.id)
                                   ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
                                   : hovered === product.id
-                                  ? 'from-[#ffe9a7] via-[#ffe9a7] to-[#6c4d25]'
+                                  ? 'from-[#cce0ff] via-[#cce0ff] to-[#667caf]'
                                   : 'from-[#85aae4] via-[#85aae4] to-[#adb9cf]'
                               } 
                     
@@ -227,7 +227,7 @@ const Products = ({products}) => {
                       inCart.includes(product.id)
                         ? 'to-[#6c4d25]'
                         : hovered === product.id
-                        ? 'to-[#6c4d25]'
+                        ? 'to-[#667caf]'
                         : 'to-[#3f5989]'
                     }`}
                               ></div>
@@ -288,7 +288,7 @@ const Products = ({products}) => {
                       inCart.includes(product.id)
                         ? 'to-[#6c4d25]'
                         : hovered === product.id
-                        ? 'to-[#6c4d25]'
+                        ? 'to-[#cce0ff]'
                         : 'to-[#3f5989]'
                     }`}
                           ></div>

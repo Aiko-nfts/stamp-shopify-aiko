@@ -1398,6 +1398,14 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(78 78 78 / var(--tw-bg-opacity));
 }
+.bg-\[\#667caf\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(102 124 175 / var(--tw-bg-opacity));
+}
+.bg-\[\#fff\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -1437,6 +1445,11 @@ video {
   --tw-gradient-to: rgb(0 0 0 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-\[\#cce0ff\] {
+  --tw-gradient-from: #cce0ff;
+  --tw-gradient-to: rgb(204 224 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .via-\[\#85aae4\] {
   --tw-gradient-to: rgb(133 170 228 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), #85aae4, var(--tw-gradient-to);
@@ -1461,6 +1474,10 @@ video {
   --tw-gradient-to: rgb(0 0 0 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), transparent, var(--tw-gradient-to);
 }
+.via-\[\#cce0ff\] {
+  --tw-gradient-to: rgb(204 224 255 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), #cce0ff, var(--tw-gradient-to);
+}
 .to-\[\#151515\] {
   --tw-gradient-to: #151515;
 }
@@ -1481,6 +1498,12 @@ video {
 }
 .to-\[\#e2e2e2\] {
   --tw-gradient-to: #e2e2e2;
+}
+.to-\[\#667caf\] {
+  --tw-gradient-to: #667caf;
+}
+.to-\[\#cce0ff\] {
+  --tw-gradient-to: #cce0ff;
 }
 .object-cover {
   -o-object-fit: cover;
