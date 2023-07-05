@@ -12,6 +12,7 @@ import {Layout} from './components/Layout';
 import {defer} from '@shopify/remix-oxygen';
 import {Provider} from 'react-redux';
 import {store} from './state/store';
+import {Seo} from `@shopify/hydrogen`;
 
 export const links = () => {
   return [
@@ -68,6 +69,9 @@ export default function App() {
     <Provider store={store}>
       <html lang="en">
         <head>
+          <Seo  title="Aiko Stamp Redeem" 
+    image="https://pbs.twimg.com/profile_banners/1433905986528583683/1687787822/1500x500"
+/>
           <Meta />
           <Links />
           <link rel="stylesheet" href="https://use.typekit.net/dmh5nuz.css" />
